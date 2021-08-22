@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import AuthenticationHelper.Login;
+import AuthenticationHelper.SignUp;
 
 public class MainActivity extends AppCompatActivity {
     private static int SPLASH_SCREEN=5000;

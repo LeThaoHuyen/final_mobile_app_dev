@@ -20,6 +20,13 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity android:name=".Login">
+            <intent-filter>
+                <action android:name="AuthenticationHelper.intent.action.Launch" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <receiver
             android:name="SetNotificationHelper.BootUpReceiver"
             android:enabled="true">

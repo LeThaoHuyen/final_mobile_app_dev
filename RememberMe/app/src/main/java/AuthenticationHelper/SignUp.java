@@ -37,8 +37,8 @@ public class SignUp extends AppCompatActivity {
         regPassword = findViewById(R.id.reg_password);
         regToLoginBtn = findViewById(R.id.reg_login_btn);
         regToLoginBtn.setOnClickListener((view)->{
-            Intent intent =  new Intent(SignUp.this, Login.class);
-            startActivity(intent);
+           // Intent intent =  new Intent(SignUp.this, Login.class);
+            //startActivity(intent);
         });
 
         regBtn = findViewById(R.id.reg_btn);
