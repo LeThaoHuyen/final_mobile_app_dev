@@ -1,11 +1,7 @@
+package com.example.rememberme;
 
-package AuthenticationHelper;
-/*
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.rememberme.BarcodeScannerActivity;
-import com.example.rememberme.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -37,7 +33,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class Login extends AppCompatActivity {
+
+public class LoginActivity extends AppCompatActivity {
 
     Button callSignUp, login_btn, mail_btn;
     ImageView image;
@@ -54,7 +51,7 @@ public class Login extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user!=null)
         {
-            Intent intent = new Intent(getApplicationContext(), BarcodeScannerActivity.class);
+            Intent intent = new Intent(this, BarcodeScannerActivity.class);
             startActivity(intent);
         }
     }
@@ -72,7 +69,7 @@ public class Login extends AppCompatActivity {
         password = findViewById(R.id.log_password);
 
         callSignUp.setOnClickListener((view) -> {
-            Intent intent =  new Intent(Login.this, SignUp.class);
+            Intent intent =  new Intent(this, SignUpActivity.class);
             startActivity(intent);
         });
 
@@ -113,7 +110,7 @@ public class Login extends AppCompatActivity {
                 } catch (ApiException e) {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     // Google Sign In failed, update UI appropriately
-                    Intent intent =  new Intent(Login.this, BarcodeScannerActivity.class);
+                    Intent intent =  new Intent(LoginActivity.this, BarcodeScannerActivity.class);
                     startActivity(intent);
                 }
             }
@@ -149,7 +146,7 @@ public class Login extends AppCompatActivity {
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(Login.this, "Sorry! Login failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Sorry! Login failed", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -251,7 +248,4 @@ public class Login extends AppCompatActivity {
         });
     }
 
-
 }
-
- */
