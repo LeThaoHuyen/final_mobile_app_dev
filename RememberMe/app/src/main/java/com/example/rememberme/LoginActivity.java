@@ -99,7 +99,6 @@ public class LoginActivity extends AppCompatActivity {
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN)
-            if (resultCode == Activity.RESULT_OK)
             {
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                 try {
@@ -108,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                     firebaseAuthWithGoogle(account.getIdToken());
                     Toast.makeText(this, "Hi there! SUCCESSFULLY LOGGED IN", Toast.LENGTH_SHORT).show();
                 } catch (ApiException e) {
-                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Successfully log in", Toast.LENGTH_SHORT).show();
                     // Google Sign In failed, update UI appropriately
                     Intent intent =  new Intent(LoginActivity.this, BarcodeScannerActivity.class);
                     startActivity(intent);

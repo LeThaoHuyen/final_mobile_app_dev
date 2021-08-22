@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="AuthenticationHelper.Login"
+    tools:context=".LoginActivity"
     android:orientation="vertical"
-    android:background="#D4F4EC"
+    android:background="#d1f1ec"
     android:padding="20dp">
 
     <ImageView
@@ -19,6 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:transitionName="logo_text"
+        android:textColor="#FEA889"
+        android:textStyle="bold"
         android:text="Hello there, Welcome Back"
         android:textSize="40sp"/>
 
@@ -26,6 +28,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign In to continue"
+        android:textStyle="bold"
+        android:textColor="#ffd8c5"
         android:textSize="18sp"/>
 
 
@@ -75,7 +79,8 @@
         android:id="@+id/loginByMail"
         android:layout_gravity="right"
         android:elevation="0dp"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:textColor="@color/black" />
 
     <Button
         android:layout_width="match_parent"

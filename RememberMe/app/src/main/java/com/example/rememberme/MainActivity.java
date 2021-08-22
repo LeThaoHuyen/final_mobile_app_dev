@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
-        /*
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
@@ -49,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
             finish();
             }, SPLASH_SCREEN);
 
-        */
+
 
         // TODO: test
-       Intent intent = new Intent(this, LoginActivity.class);
-       startActivity(intent);
+      // Intent intent = new Intent(this, LoginActivity.class);
+       //startActivity(intent);
     }
 }
