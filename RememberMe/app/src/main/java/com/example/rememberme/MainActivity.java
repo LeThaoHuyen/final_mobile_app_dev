@@ -2,18 +2,16 @@ package com.example.rememberme;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import AuthenticationHelper.Login;
-import AuthenticationHelper.SignUp;
 
 public class MainActivity extends AppCompatActivity {
     private static int SPLASH_SCREEN=5000;
@@ -25,8 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
+        /*
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
@@ -44,13 +44,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         new Handler().postDelayed( ()-> {
-            Intent intent = new Intent(this, Login.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
             }, SPLASH_SCREEN);
 
+        */
+
         // TODO: test
-       /* Intent intent = new Intent(this, BarcodeScannerActivity.class);
-        startActivity(intent);*/
+       Intent intent = new Intent(this, LoginActivity.class);
+       startActivity(intent);
     }
 }

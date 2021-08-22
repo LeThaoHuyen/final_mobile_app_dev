@@ -1,18 +1,19 @@
-package AuthenticationHelper;
-/*
+package com.example.rememberme;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import com.example.rememberme.R;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SignUp extends AppCompatActivity {
+import AuthenticationHelper.UserHelperClass;
+
+public class SignUpActivity extends AppCompatActivity {
 
     TextInputLayout regName, regUsername, regEmail, regPhoneNo, regPassword;
     Button regBtn, regToLoginBtn;
@@ -33,7 +34,7 @@ public class SignUp extends AppCompatActivity {
         regPassword = findViewById(R.id.reg_password);
         regToLoginBtn = findViewById(R.id.reg_login_btn);
         regToLoginBtn.setOnClickListener((view)->{
-           // Intent intent =  new Intent(SignUp.this, Login.class);
+            // Intent intent =  new Intent(SignUp.this, Login.class);
             //startActivity(intent);
         });
 
@@ -128,9 +129,7 @@ public class SignUp extends AppCompatActivity {
         UserHelperClass helperClass = new UserHelperClass(name, username, email, phoneNo, password);
         reference.child(username).setValue(helperClass);
 
-        Intent intent =  new Intent(SignUp.this, Login.class);
+        Intent intent =  new Intent(SignUpActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 }
-
- */
