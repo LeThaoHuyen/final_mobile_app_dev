@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-        <receiver android:name="SetNotificationHelper.AlarmBrodcast" />
+        <receiver android:name="SetNotificationHelper.AlarmBroadcast" />
 
     </application>
 

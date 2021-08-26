@@ -17,7 +17,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.rememberme.R;
 
-public class AlarmBrodcast extends BroadcastReceiver {
+public class AlarmBroadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
