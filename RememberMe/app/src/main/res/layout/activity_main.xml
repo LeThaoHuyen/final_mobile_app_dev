@@ -22,5 +22,4 @@
         app:menu="@menu/navigation_bottom" />
 
 
-
 </RelativeLayout>

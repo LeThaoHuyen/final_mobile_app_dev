@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
+
         callSignUp = findViewById(R.id.signup_screen);
         login_btn = findViewById(R.id.validate_login);
         mail_btn = findViewById(R.id.loginByMail);

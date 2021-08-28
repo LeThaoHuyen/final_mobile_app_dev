@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    android:orientation="horizontal"
+    android:layout_marginTop="20dp"
+    android:layout_gravity="center_horizontal"
+    android:id="@+id/item_fragment">
+    <LinearLayout
+        android:id="@+id/product_view"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/background_white">
+
+        <ImageView
+            android:id="@+id/product_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/barcode_image" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginRight="2mm">
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha=".8"
+                android:padding="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/background_text"
+                android:text="Product name"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/expiry_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha=".8"
+                android:padding="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/background_text"
+                android:text="Time left"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold|italic" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

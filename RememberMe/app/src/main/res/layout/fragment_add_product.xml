@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/background_grey"
-    tools:context=".CreateEvent">
+    tools:context=".AddFragmentItem">
 
 
     <LinearLayout
@@ -34,8 +34,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/series_ID"
+            <EditText
+                android:id="@+id/edittext_series_ID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha=".8"
@@ -43,7 +43,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="15dp"
                 android:background="@drawable/background_text"
-                android:text="series_ID"
+                android:hint="series_ID"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold|italic" />
@@ -65,13 +65,13 @@
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/expiry_date"
+    <EditText
+        android:id="@+id/edittext_expiry_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
         android:layout_marginStart="10dp"
-        android:text="Expiry date"
+        android:hint="Expiry date"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="18sp" />
@@ -133,14 +133,27 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_done"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Done"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:textColor="@color/white"
-        android:background="@color/black"/>
+        android:layout_marginTop="20dp">
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="100dp"
+            android:text="OK">
+        </Button>
+
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cancel">
+        </Button>
+
+    </LinearLayout>
 
 </LinearLayout>
