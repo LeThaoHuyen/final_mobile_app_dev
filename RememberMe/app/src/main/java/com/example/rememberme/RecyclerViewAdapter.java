@@ -1,30 +1,33 @@
 package com.example.rememberme;
 
 import android.content.Context;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.ImageView;
-        import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-        import androidx.annotation.NonNull;
-        import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import Models.Product;
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
-    List<FragmentItem> ItemList;
+    List<Product> productList;
+    Context context;
 
-    public RecyclerViewAdapter(List<FragmentItem> itemList, Context context) {
-        ItemList = itemList;
+    public RecyclerViewAdapter(List<Product> productList, Context context) {
+        this.productList = productList;
         this.context = context;
     }
 
-    Context context;
-    public RecyclerViewAdapter(List<FragmentItem> itemList) {
+    public RecyclerViewAdapter(List<Product> productList) {
     }
 
     @NonNull
@@ -38,21 +41,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.itemName.setText(ItemList.get(position).getName());
-        holder.itemExpDate.setText(ItemList.get(position).getDate());
-        Glide.with(this.context).load(ItemList.get(position).getImageURL()).into(holder.itemImage);
+        holder.itemName.setText(productList.get(position).getName());
+        holder.itemExpDate.setText(productList.get(position).getDate());
+        Glide.with(this.context).load(productList.get(position).getImageURL()).into(holder.itemImage);
     }
 
     @Override
     public int getItemCount() {
-        return ItemList.size();
+        return productList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView itemImage;
         TextView itemName;
         TextView itemExpDate;
-
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

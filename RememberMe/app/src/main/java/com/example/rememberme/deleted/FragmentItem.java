@@ -1,5 +1,6 @@
-package com.example.rememberme;
+package com.example.rememberme.deleted;
 
+/*
 import java.util.List;
 
 public class FragmentItem{
@@ -58,8 +59,9 @@ public class FragmentItem{
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", company='" + date + '\'' +
+                ", date='" + date + '\'' +
                 ", imageURL='" + imageURL + '\'' +
                 '}';
     }
 }
+*/

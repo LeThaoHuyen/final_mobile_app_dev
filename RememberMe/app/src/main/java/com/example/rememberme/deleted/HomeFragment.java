@@ -1,4 +1,4 @@
-package com.example.rememberme;
+package com.example.rememberme.deleted;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -9,14 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
 
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,10 +25,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Arrays;
 import java.util.List;
 
-
+/*
 public class HomeFragment extends AppCompatActivity {
 
-    Button btn_addOne;
+
     //List<FragmentItem> itemList = new ArrayList<>();
     private static final String TAG = "Item App";
 
@@ -40,13 +38,14 @@ public class HomeFragment extends AppCompatActivity {
 
     final singleTonClass itemList = (singleTonClass) getApplicationContext();
 
+    Button btn_addOne;
     TextView actionEvent;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_home);
+        setContentView(R.layout.activity_home);
         loadData();
         //fillCelebList();
         Log.d(TAG, "OnCreate: " + itemList.toString());
@@ -125,3 +124,4 @@ public class HomeFragment extends AppCompatActivity {
         });
     }
 }
+*/
