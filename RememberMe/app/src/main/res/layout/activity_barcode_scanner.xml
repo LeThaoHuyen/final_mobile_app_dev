@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <BarcodeScannerHelper.GraphicOverlay
+    <com.example.rememberme.BarcodeScannerHelper.GraphicOverlay
         android:id="@+id/graphic_overlay"
         android:layout_width="0dp"
         android:layout_height="0dp"

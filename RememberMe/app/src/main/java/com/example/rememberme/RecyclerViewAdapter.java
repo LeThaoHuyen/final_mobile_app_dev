@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +14,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import Models.Product;
+import com.example.rememberme.Models.Product;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
@@ -58,7 +57,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemImage = itemView.findViewById(R.id.product_view);
+            itemImage = itemView.findViewById(R.id.product_image);
             itemName = itemView.findViewById(R.id.product_name);
             itemExpDate = itemView.findViewById(R.id.expiry_date);
 

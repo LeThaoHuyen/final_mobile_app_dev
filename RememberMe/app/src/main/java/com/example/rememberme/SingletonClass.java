@@ -1,24 +1,32 @@
 package com.example.rememberme;
 import android.app.Application;
 
+import com.example.rememberme.Models.Product;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import Models.Product;
 
 
-public class SingletonClass extends Application{
+public class SingletonClass {
     private static SingletonClass singleton;
     private static List<Product> productList = new ArrayList<>();
     public static String userID;
     public static int count =0;
-    public SingletonClass getInstance(){ return singleton; }
+    public static SingletonClass getInstance(){
+        if (singleton == null){
+            singleton = new SingletonClass();
+        }
+        return singleton;
+    }
 
+    /*
     @Override
     public void onCreate() {
         super.onCreate();
         singleton = this;
     }
+    */
 
     public void clear()
     {
@@ -27,6 +35,10 @@ public class SingletonClass extends Application{
     public void addItem(Product x){
         productList.add(x);
         count++;
+    }
+
+    public static List<Product> getProductList() {
+        return productList;
     }
 
     public int getCount() { return count; }

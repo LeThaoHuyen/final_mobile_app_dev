@@ -9,31 +9,35 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.RememberMe"
-        android:name=".singleTonClass">
+        android:theme="@style/Theme.RememberMe">
+        //android:name=".SingletonClass">
         //tools:ignore="Instantiatable">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.rememberme.BarcodeScannerActivity"
+        <activity android:name=".activities.BarcodeScannerActivity"
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".SignUpActivity"/>
+        <activity android:name=".activities.LoginActivity"/>
+        <activity android:name=".activities.SignUpActivity"/>
         <receiver
-            android:name="SetNotificationHelper.BootUpReceiver"
+            android:name=".SetNotificationHelper.BootUpReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-        <receiver android:name="SetNotificationHelper.AlarmBroadcast" />
+        <receiver android:name=".SetNotificationHelper.AlarmBroadcast" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
     </application>
 
