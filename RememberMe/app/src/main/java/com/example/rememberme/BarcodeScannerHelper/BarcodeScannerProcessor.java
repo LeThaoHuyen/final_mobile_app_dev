@@ -2,11 +2,15 @@ package com.example.rememberme.BarcodeScannerHelper;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.rememberme.activities.HomeActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.mlkit.vision.barcode.Barcode;
 import com.google.mlkit.vision.barcode.BarcodeScanner;

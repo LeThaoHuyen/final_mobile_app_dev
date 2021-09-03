@@ -1,6 +1,7 @@
 package com.example.rememberme.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -92,18 +93,32 @@ public class BarcodeScannerActivity extends AppCompatActivity
 
     @Override
     public void sendScannedCode(String code) {
+        if (code != null && !code.isEmpty()){
+            binding.barcodeRawValue.setText(code);
+            binding.resultContainer.setVisibility(View.VISIBLE);
+            //Toast.makeText(getApplicationContext(), "Hi there!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            //intent.putExtra("serialNum", code);
+            startActivity(intent);
+        }
+        /*
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
-
                 if (code != null && !code.isEmpty()) {
-
                     binding.barcodeRawValue.setText(code);
                     binding.resultContainer.setVisibility(View.VISIBLE);
+                    Toast.makeText(getApplicationContext(), "Hi there!", Toast.LENGTH_SHORT).show();
+                    //Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    //intent.putExtra("serialNum", code);
+                    //startActivity(intent);
+                    handler.removeCallbacksAndMessages(null);
                 }
             }
         });
+
+         */
     }
 
     @Override
@@ -252,5 +267,4 @@ public class BarcodeScannerActivity extends AppCompatActivity
                     this, allNeededPermissions.toArray(new String[0]), PERMISSION_REQUESTS);
         }
     }
-    /*************************************/
 }
