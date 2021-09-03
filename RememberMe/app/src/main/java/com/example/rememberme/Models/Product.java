@@ -16,6 +16,14 @@ public class Product {
         this.seriNum = seriNum;
     }
 
+    public String getSeriNum() {
+        return seriNum;
+    }
+
+    public void setSeriNum(String seriNum) {
+        this.seriNum = seriNum;
+    }
+
     public int getId() {
         return id;
     }

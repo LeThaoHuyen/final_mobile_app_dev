@@ -11,6 +11,7 @@ import java.util.List;
 public class SingletonClass {
     private static SingletonClass singleton;
     private static List<Product> productList = new ArrayList<>();
+    private static Product currentProduct;
     public static String userID;
     public static int count =0;
     public static SingletonClass getInstance(){
@@ -20,6 +21,13 @@ public class SingletonClass {
         return singleton;
     }
 
+    public Product getCurrentProduct() {
+        return currentProduct;
+    }
+
+    public void setCurrentProduct(Product currentProduct) {
+        SingletonClass.currentProduct = currentProduct;
+    }
     /*
     @Override
     public void onCreate() {
@@ -37,10 +45,14 @@ public class SingletonClass {
         count++;
     }
 
-    public static List<Product> getProductList() {
+    public  List<Product> getProductList() {
         return productList;
     }
 
+    public int getProductID()
+    {
+        return currentProduct.getId();
+    }
     public int getCount() { return count; }
     public String getUserID() { return userID; }
     public void setUserID(String userID){ SingletonClass.userID = userID; }
