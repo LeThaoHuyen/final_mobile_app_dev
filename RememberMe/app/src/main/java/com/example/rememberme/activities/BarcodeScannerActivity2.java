@@ -1,6 +1,5 @@
 package com.example.rememberme.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -24,6 +23,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.rememberme.BarcodeScannerHelper.BarcodeScannerProcessor2;
+import com.example.rememberme.BarcodeScannerHelper.ScannedResult;
 import com.example.rememberme.R;
 import com.example.rememberme.databinding.ActivityBarcodeScannerBinding;
 import com.google.mlkit.common.MlKitException;
@@ -37,8 +38,8 @@ import com.example.rememberme.BarcodeScannerHelper.ExchangeScannedData;
 import com.example.rememberme.BarcodeScannerHelper.VisionImageProcessor;
 
 
-public class BarcodeScannerActivity extends AppCompatActivity
-        implements ActivityCompat.OnRequestPermissionsResultCallback, ExchangeScannedData {
+public class BarcodeScannerActivity2 extends AppCompatActivity
+        implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final String TAG = "BarcodeScannerActivity";
     private static final int PERMISSION_REQUESTS = 1;
@@ -92,29 +93,8 @@ public class BarcodeScannerActivity extends AppCompatActivity
 
     }
 
-    public void buttonNextClick(View view) {
-        Intent intent = new Intent(BarcodeScannerActivity.this, AddProductActivity.class);
-        String code = binding.barcodeRawValue.getText().toString();
-        intent.putExtra("serialNum", "8801062160709" );
-        startActivity(intent);
-    }
 
-    @Override
-    public void sendScannedCode(String code) {
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (code != null && !code.isEmpty()) {
-                    binding.barcodeRawValue.setText(code);
-                    binding.resultContainer.setVisibility(View.VISIBLE);
-                    //Toast.makeText(getApplicationContext(), "Hi there!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-    }
-
+    /*
     @Override
     protected void onSaveInstanceState(@NonNull Bundle bundle) {
         super.onSaveInstanceState(bundle);
@@ -135,6 +115,7 @@ public class BarcodeScannerActivity extends AppCompatActivity
         }
     }
 
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -142,6 +123,8 @@ public class BarcodeScannerActivity extends AppCompatActivity
             imageProcessor.stop();
         }
     }
+    */
+
 
     /**
      * Bind camera use cases
@@ -158,7 +141,7 @@ public class BarcodeScannerActivity extends AppCompatActivity
         }
         previewUseCase = new Preview.Builder().build();
         previewUseCase.setSurfaceProvider(binding.previewView.createSurfaceProvider());
-        cameraProvider.bindToLifecycle(BarcodeScannerActivity.this, cameraSelector, previewUseCase);
+        cameraProvider.bindToLifecycle(BarcodeScannerActivity2.this, cameraSelector, previewUseCase);
     }
 
     private void bindAnalysisUseCase() {
@@ -170,7 +153,11 @@ public class BarcodeScannerActivity extends AppCompatActivity
             imageProcessor.stop();
         }
         try {
-            imageProcessor = new BarcodeScannerProcessor(this, this);
+            imageProcessor = new BarcodeScannerProcessor2(this);
+            String code = new ScannedResult().getInstance().getCode();
+            Intent intent = new Intent(this, HomeActivity.class);
+            //intent.putExtra("serialNum", code);
+            startActivity(intent);
         } catch (Exception e) {
             Log.e(TAG, "Can not create image processor.", e);
             return;
@@ -261,6 +248,4 @@ public class BarcodeScannerActivity extends AppCompatActivity
                     this, allNeededPermissions.toArray(new String[0]), PERMISSION_REQUESTS);
         }
     }
-
-
 }

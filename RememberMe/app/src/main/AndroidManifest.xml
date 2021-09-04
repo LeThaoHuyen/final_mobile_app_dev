@@ -12,20 +12,23 @@
         android:theme="@style/Theme.RememberMe">
         //android:name=".SingletonClass">
         //tools:ignore="Instantiatable">
-        <activity android:name=".activities.LoginActivity">
+
+        <activity android:name=".activities.BarcodeScannerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.BarcodeScannerActivity"
+
+        <activity android:name=".activities.HomeActivity"
             android:screenOrientation="portrait">
         </activity>
 
 
         <activity android:name=".activities.SignUpActivity"/>
         <activity android:name=".activities.AddProductActivity"/>
+
         <receiver
             android:name=".SetNotificationHelper.BootUpReceiver"
             android:enabled="true">
