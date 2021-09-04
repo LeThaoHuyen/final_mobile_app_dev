@@ -94,8 +94,7 @@ public class BarcodeScannerActivity extends AppCompatActivity
 
     public void buttonNextClick(View view) {
         Intent intent = new Intent(BarcodeScannerActivity.this, AddProductActivity.class);
-        String code = binding.barcodeRawValue.getText().toString();
-        intent.putExtra("serialNum", "8801062160709" );
+        intent.putExtra("serialNum", "");
         startActivity(intent);
     }
 
@@ -108,7 +107,10 @@ public class BarcodeScannerActivity extends AppCompatActivity
                 if (code != null && !code.isEmpty()) {
                     binding.barcodeRawValue.setText(code);
                     binding.resultContainer.setVisibility(View.VISIBLE);
-                    //Toast.makeText(getApplicationContext(), "Hi there!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(BarcodeScannerActivity.this, AddProductActivity.class);
+                    String code = binding.barcodeRawValue.getText().toString();
+                    intent.putExtra("serialNum", code);
+                    startActivity(intent);
                 }
             }
         });
