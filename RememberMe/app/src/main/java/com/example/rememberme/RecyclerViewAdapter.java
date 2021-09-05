@@ -164,9 +164,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 else {
                     singletonClass.setCurrentProduct(productList.get(position));
                     Toast.makeText(context, "Short Click: " + productList.get(position), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent (view.getContext(), SplashScreenActivity.class);
-                    view.getContext().startActivity(intent);
+                    Intent intent = new Intent (context, EditProductActivity.class);
                     context.startActivity(intent);
+                   // context.startActivity(intent);
                     //Huyen oi cho nay neeeeeeeeeeee
                 }
             }
@@ -175,8 +175,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private void deleteAnObject() {
         rootNode = FirebaseDatabase.getInstance();
-        reference = rootNode.getReference("products");
+        reference = rootNode.getReference("Products");
+        Product x = new Product(4, "GD", "10/2/2000", "URLSave", "seriSave");
         int id = singletonClass.getProductID();
+        singletonClass.setUserID("ew5QKmpCHEPCkAZPChxGKSzf0kw2");
+        reference.child(singletonClass.getUserID()).child(String.valueOf(id)).setValue(x);
 
         //remove that item in database
         reference.child(singletonClass.getUserID()).child(String.valueOf(id)).removeValue();

@@ -29,6 +29,8 @@
 
         <activity android:name=".activities.SignUpActivity"/>
 
+        <activity android:name=".activities.SplashScreenActivity"/>
+        <activity android:name=".activities.EditProductActivity"/>
 
         <receiver
             android:name=".SetNotificationHelper.BootUpReceiver"

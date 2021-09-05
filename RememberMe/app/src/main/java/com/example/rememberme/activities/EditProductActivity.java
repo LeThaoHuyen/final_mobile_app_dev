@@ -1,53 +1,113 @@
 package com.example.rememberme.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rememberme.Models.Product;
 import com.example.rememberme.R;
+import com.example.rememberme.RecyclerViewAdapter;
+import com.example.rememberme.SingletonClass;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-public class EditProductActivity extends AppCompatActivity {
-    private static int SPLASH_SCREEN = 5000;
+import java.util.List;
 
-    //Variables
-    Animation topAnim, bottomAnim;
-    ImageView image;
-    TextView logo, slogan;
+public class EditProductActivity extends AppCompatActivity{
+
+    //List<FragmentItem> itemList = new ArrayList<>();
+    private static final String TAG = "Item App";
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter nAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
+    final SingletonClass itemList = SingletonClass.getInstance();
+
+    Button btn_addOne, btn_cancel;
+    TextView actionEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_edit_product);
+        //fillCelebList();
+        Log.d(TAG, "OnCreate: " + itemList.toString());
+        EditText name = (EditText) findViewById(R.id.edittext_product_name);
+        EditText expDate = (EditText) findViewById(R.id.edittext_expiry_date);
+        EditText seri = (EditText) findViewById(R.id.edittext_series_ID);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_splash_screen);
+        name.setText(itemList.getCurrentProduct().getName());
+        expDate.setText(itemList.getCurrentProduct().getDate());
+        seri.setText(itemList.getCurrentProduct().getSeriNum());
+
+        btn_addOne = findViewById(R.id.btn_add);
+        btn_addOne.setOnClickListener((view)->{
+
+            if (itemList.getProductList().contains(itemList.getCurrentProduct()))
+            {
+
+                String nameSave = name.getText().toString();
 
 
-        topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
-        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
-
-        image = findViewById(R.id.imageView);
-        logo = findViewById(R.id.textView);
-        slogan = findViewById(R.id.textView2);
-
-        image.setAnimation(topAnim);
-        logo.setAnimation((bottomAnim));
-        slogan.setAnimation(bottomAnim);
+                String expDateSave = expDate.getText().toString();
 
 
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(this, LoginActivity.class);
+                String seriSave = seri.getText().toString();
+
+                String URLSave = "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1";
+                Product x = new Product(itemList.getProductID(), nameSave, expDateSave, URLSave, seriSave);
+                itemList.getProductList().remove(itemList.getCurrentProduct());
+                itemList.addItem(x);
+
+
+                rootNode = FirebaseDatabase.getInstance();
+                reference = rootNode.getReference("products");
+                int id = itemList.getProductID();
+
+                //remove that item in database
+                //reference.child(itemList.getUserID()).child(String.valueOf(id)).removeValue();
+
+                //reference.child(itemList.getUserID()).setValue(x);
+
+
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+
+                // Todo: show product info taken from barcode....
+                // Todo: print out toast to notify "Update successfully"
+            }
+
+
+
+        });
+
+        btn_cancel = findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener((view) -> {
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
-            finish();
-        }, SPLASH_SCREEN);
-
+        });
     }
+
 }
