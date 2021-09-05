@@ -16,7 +16,7 @@
         <activity android:name=".activities.SplashScreenActivity"/>
 
 
-        <activity android:name=".activities.HomeActivity">
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +32,7 @@
         <activity android:name=".activities.SignUpActivity"/>
 
 
-        <activity android:name=".activities.LoginActivity"/>
+        <activity android:name=".activities.HomeActivity"/>
         <activity android:name=".activities.EditProductActivity"/>
 
         <receiver

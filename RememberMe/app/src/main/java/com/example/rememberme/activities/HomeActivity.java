@@ -23,6 +23,7 @@ import com.example.rememberme.Models.Product;
 import com.example.rememberme.R;
 import com.example.rememberme.RecyclerViewAdapter;
 import com.example.rememberme.SingletonClass;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -33,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,11 +57,9 @@ public class HomeActivity extends AppCompatActivity
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setup();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        //loadData();
-        //fillCelebList();
+        setup();
         Log.d(TAG, "OnCreate: " + singletonClass.toString());
 
         /**-----------------------------------------------------**/
@@ -85,11 +85,6 @@ public class HomeActivity extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-      //  nAdapter = new RecyclerViewAdapter((List) singletonClass.getProductList(), this);
-
-        //recyclerView.setAdapter(nAdapter);
-        nAdapter = new RecyclerViewAdapter(singletonClass.getProductList(), HomeActivity.this);
-        recyclerView.setAdapter(nAdapter);
         /**-----------------------------------------------------**/
 
         /**----------------Floating button----------------------**/
@@ -103,6 +98,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void setup() {
+        // TODO: get current user ID
         singletonClass.setUserID("ew5QKmpCHEPCkAZPChxGKSzf0kw2");
         final String userID = singletonClass.getUserID().trim();
 
@@ -112,8 +108,7 @@ public class HomeActivity extends AppCompatActivity
         if (singletonClass.getCount()!=0)
             singletonClass.clear();
 
-
-        reference.child(userID).addValueEventListener(new ValueEventListener() {
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
@@ -127,10 +122,13 @@ public class HomeActivity extends AppCompatActivity
 
                             Product x = new Product(idProduct, nameProduct, expProduct, urlProduct, seriProduct);
                             singletonClass.addItem(x);
-                            Log.d(TAG, "Successful gì kì dị");
+                            Log.d(TAG, String.valueOf(singletonClass.getCount()));
+                            Log.d(TAG, "Successful");
                             Log.d(TAG, nameProduct);
 
                         }
+                        nAdapter = new RecyclerViewAdapter(singletonClass.getProductList(), HomeActivity.this);
+                        recyclerView.setAdapter(nAdapter);
                     } else{
                         Log.d(TAG, "No such document");
                     }
@@ -144,39 +142,6 @@ public class HomeActivity extends AppCompatActivity
 
             }
         });
-
-        //reference.addValueEventListener(changeListener);
-
-
-
-
-
-
-       /* checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    int idProduct = dataSnapshot.child(userID).child("id").getValue(Integer.class);
-                    String nameProduct = dataSnapshot.child(userID).child("name").getValue(String.class);
-                    String expProduct = dataSnapshot.child(userID).child("date").getValue(String.class);
-                    String urlProduct = dataSnapshot.child(userID).child("imageURL").getValue(String.class);
-                    String seriProduct = dataSnapshot.child(userID).child("seriNum").getValue(String.class);
-
-                    Product x = new Product(idProduct,nameProduct, expProduct, urlProduct, seriProduct);
-                    singletonClass.addItem(x);
-                }
-                else
-                {
-                    Toast.makeText(HomeActivity.this, "Database failed", Toast.LENGTH_SHORT).show();
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });*/
     }
 
     @Override
@@ -186,7 +151,8 @@ public class HomeActivity extends AppCompatActivity
             //TODO
         }
         else if (id == R.id.nav_logout){
-
+            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+            startActivity(intent);
         }
         else if (id == R.id.nav_support){
 
@@ -209,7 +175,6 @@ public class HomeActivity extends AppCompatActivity
         singletonClass.setUserID("ew5QKmpCHEPCkAZPChxGKSzf0kw2");
 
         Product c1 = new Product(1, "G-Dragon", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
-
         Product c2 = new Product(2, "Daesung", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
         Product c4 = new Product(4, "TOP", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
         Product c5 = new Product(5, "Seungri", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
