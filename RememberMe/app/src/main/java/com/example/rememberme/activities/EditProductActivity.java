@@ -1,12 +1,15 @@
 package com.example.rememberme.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -66,13 +69,13 @@ public class EditProductActivity extends AppCompatActivity{
 
 
                 rootNode = FirebaseDatabase.getInstance();
-                reference = rootNode.getReference("products");
+                reference = rootNode.getReference("Products");
                 int id = itemList.getProductID();
 
-                //remove that item in database
-                //reference.child(itemList.getUserID()).child(String.valueOf(id)).removeValue();
 
-                //reference.child(itemList.getUserID()).setValue(x);
+                //remove that item in database
+                reference.child(itemList.getUserID()).child(String.valueOf(x.getId())).setValue(x);
+
 
 
                 Intent intent = new Intent(this, HomeActivity.class);
@@ -80,6 +83,8 @@ public class EditProductActivity extends AppCompatActivity{
 
                 // Todo: show product info taken from barcode....
                 // Todo: print out toast to notify "Update successfully"
+                Toast.makeText(this, "Update successfully!", Toast.LENGTH_SHORT).show();
+
             }
 
 
@@ -88,9 +93,12 @@ public class EditProductActivity extends AppCompatActivity{
 
         btn_cancel = findViewById(R.id.btn_cancel);
         btn_cancel.setOnClickListener((view) -> {
+
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
+
+
         });
     }
-
 }
+

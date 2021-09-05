@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -22,8 +23,15 @@ import com.example.rememberme.Models.Product;
 import com.example.rememberme.R;
 import com.example.rememberme.RecyclerViewAdapter;
 import com.example.rememberme.SingletonClass;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,10 +55,11 @@ public class HomeActivity extends AppCompatActivity
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setup();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         //loadData();
-        fillCelebList();
+        //fillCelebList();
         Log.d(TAG, "OnCreate: " + singletonClass.toString());
 
         /**-----------------------------------------------------**/
@@ -93,6 +102,73 @@ public class HomeActivity extends AppCompatActivity
         });
     }
 
+    private void setup() {
+        singletonClass.setUserID("ew5QKmpCHEPCkAZPChxGKSzf0kw2");
+        final String userID = singletonClass.getUserID().trim();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Products");
+        Query checkUser = reference.child(userID).orderByChild("id").equalTo(1);
+
+        if (singletonClass.getCount()!=0)
+            singletonClass.clear();
+
+
+        reference.child(userID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    int idProduct = dataSnapshot.child("id").getValue(Integer.class);
+                    String nameProduct = dataSnapshot.child("name").getValue(String.class);
+                    String expProduct = dataSnapshot.child("date").getValue(String.class);
+                    String urlProduct = dataSnapshot.child("imageURL").getValue(String.class);
+                    String seriProduct = dataSnapshot.child("seriNum").getValue(String.class);
+
+                    Product x = new Product(idProduct,nameProduct, expProduct, urlProduct, seriProduct);
+                    singletonClass.addItem(x);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //reference.addValueEventListener(changeListener);
+
+
+
+
+
+
+       /* checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    int idProduct = dataSnapshot.child(userID).child("id").getValue(Integer.class);
+                    String nameProduct = dataSnapshot.child(userID).child("name").getValue(String.class);
+                    String expProduct = dataSnapshot.child(userID).child("date").getValue(String.class);
+                    String urlProduct = dataSnapshot.child(userID).child("imageURL").getValue(String.class);
+                    String seriProduct = dataSnapshot.child(userID).child("seriNum").getValue(String.class);
+
+                    Product x = new Product(idProduct,nameProduct, expProduct, urlProduct, seriProduct);
+                    singletonClass.addItem(x);
+                }
+                else
+                {
+                    Toast.makeText(HomeActivity.this, "Database failed", Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });*/
+    }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item){
         int id = item.getItemId();
@@ -120,6 +196,8 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void fillCelebList() {
+        singletonClass.setUserID("ew5QKmpCHEPCkAZPChxGKSzf0kw2");
+
         Product c1 = new Product(1, "G-Dragon", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
 
         Product c2 = new Product(2, "Daesung", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");

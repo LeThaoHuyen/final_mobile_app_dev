@@ -39,12 +39,16 @@ public class SingletonClass {
     public void clear()
     {
         productList.clear();
+        count = 0;
     }
     public void addItem(Product x){
         productList.add(x);
         count++;
     }
-
+    public void removeItem(Product x){
+        productList.remove(x);
+        count--;
+    }
     public  List<Product> getProductList() {
         return productList;
     }
@@ -55,7 +59,7 @@ public class SingletonClass {
     }
     public int getCount() { return count; }
     public String getUserID() { return userID; }
-    public void setUserID(String userID){ SingletonClass.userID = userID; }
+    public void setUserID(String userID){ this.userID = userID; }
 }
 
 /*
