@@ -37,9 +37,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button callSignUp, login_btn, mail_btn;
+    Button login_btn, mail_btn;
     ImageView image;
-    TextView logoText, sloganText;
+    TextView logoText, sloganText, callSignUp;
     TextInputLayout username, password;
     private GoogleSignInClient mGoogleSignInClient;
     private final static int RC_SIGN_IN = 123;
