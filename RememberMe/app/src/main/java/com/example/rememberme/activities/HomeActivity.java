@@ -119,15 +119,16 @@ public class HomeActivity extends AppCompatActivity
                 try {
                     if (dataSnapshot.exists()) {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            String idProduct = dataSnapshot.child("id").getValue(String.class);
-                            String nameProduct = dataSnapshot.child("name").getValue(String.class);
-                            String expProduct = dataSnapshot.child("date").getValue(String.class);
-                            String urlProduct = dataSnapshot.child("imageURL").getValue(String.class);
-                            String seriProduct = dataSnapshot.child("seriNum").getValue(String.class);
+                            int idProduct = postSnapshot.child("id").getValue(Integer.class);
+                            String nameProduct = postSnapshot.child("name").getValue(String.class);
+                            String expProduct = postSnapshot.child("date").getValue(String.class);
+                            String urlProduct = postSnapshot.child("imageURL").getValue(String.class);
+                            String seriProduct = postSnapshot.child("seriNum").getValue(String.class);
 
-                            Product x = new Product(1, nameProduct, expProduct, urlProduct, seriProduct);
+                            Product x = new Product(idProduct, nameProduct, expProduct, urlProduct, seriProduct);
                             singletonClass.addItem(x);
-                            Log.d(TAG, "Successful");
+                            Log.d(TAG, "Successful gì kì dị");
+                            Log.d(TAG, nameProduct);
 
                         }
                     } else{
