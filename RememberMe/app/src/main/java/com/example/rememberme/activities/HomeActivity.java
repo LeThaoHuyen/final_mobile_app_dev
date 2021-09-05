@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import com.example.rememberme.Models.Product;
 import com.example.rememberme.R;
 import com.example.rememberme.RecyclerViewAdapter;
 import com.example.rememberme.SingletonClass;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Arrays;
@@ -37,7 +39,7 @@ public class HomeActivity extends AppCompatActivity
     final SingletonClass singletonClass = SingletonClass.getInstance();
 
     //Todo: declare UI components
-    //Button btn_addOne;
+    private FloatingActionButton floatButton;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private NavigationView navigationView;
@@ -51,11 +53,12 @@ public class HomeActivity extends AppCompatActivity
         fillCelebList();
         Log.d(TAG, "OnCreate: " + singletonClass.toString());
 
-        /*-----------------------------------------------------*/
+        /**-----------------------------------------------------**/
         // Todo find UI components
         drawerLayout = findViewById(R.id.drawer_layout);
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.nav_view);
+        floatButton = findViewById(R.id.add_button);
 
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
@@ -64,9 +67,9 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-        /*-----------------------------------------------------*/
+        /**-----------------------------------------------------**/
 
-        /*---------------------Recycler view-------------------*/
+        /**---------------------Recycler view-------------------**/
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 
@@ -78,7 +81,16 @@ public class HomeActivity extends AppCompatActivity
         //recyclerView.setAdapter(nAdapter);
         nAdapter = new RecyclerViewAdapter(singletonClass.getProductList(), HomeActivity.this);
         recyclerView.setAdapter(nAdapter);
-        /*-----------------------------------------------------*/
+        /**-----------------------------------------------------**/
+
+        /**----------------Floating button----------------------**/
+        floatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, BarcodeScannerActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

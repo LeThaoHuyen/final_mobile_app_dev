@@ -44,9 +44,6 @@ public class AddProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
 
-        Bundle extras = getIntent().getExtras();
-        String serialNum = extras.getString("serialNum");
-
         btn_ok = findViewById(R.id.btn_add);
         btn_cancel = findViewById(R.id.btn_cancel);
         imageView = findViewById(R.id.product_image);
@@ -54,7 +51,15 @@ public class AddProductActivity extends AppCompatActivity {
         et_expDate = (EditText) findViewById(R.id.edittext_expiry_date);
         et_serialNum = (EditText) findViewById(R.id.edittext_series_ID);
 
-        getProductInfoFromSerialNum(serialNum);
+        Bundle extras = getIntent().getExtras();
+        String serialNum = extras.getString("serialNum");
+
+        if (serialNum != "Barcode") {
+            getProductInfoFromSerialNum(serialNum);
+        }
+        else{
+            et_serialNum.setText(serialNum);
+        }
 
         btn_ok.setOnClickListener((view) -> {
             String nameSave = et_name.getText().toString();

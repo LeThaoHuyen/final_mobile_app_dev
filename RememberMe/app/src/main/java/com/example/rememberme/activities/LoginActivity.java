@@ -3,6 +3,7 @@ package com.example.rememberme.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            Intent intent = new Intent(this, BarcodeScannerActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         }
     }
@@ -109,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (ApiException e) {
                 Toast.makeText(this, "Successfully log in", Toast.LENGTH_SHORT).show();
                 // Google Sign In failed, update UI appropriately
-                Intent intent = new Intent(LoginActivity.this, BarcodeScannerActivity.class);
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         }
@@ -141,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext(), BarcodeScannerActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
