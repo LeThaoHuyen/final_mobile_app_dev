@@ -93,8 +93,8 @@ public class BarcodeScannerActivity extends AppCompatActivity
     }
 
     public void buttonNextClick(View view) {
-        Intent intent = new Intent(BarcodeScannerActivity.this, HomeActivity.class);
-        intent.putExtra("serialNum", "");
+        Intent intent = new Intent(BarcodeScannerActivity.this, AddProductActivity.class);
+        intent.putExtra("serialNum", "Barcode");
         startActivity(intent);
     }
 

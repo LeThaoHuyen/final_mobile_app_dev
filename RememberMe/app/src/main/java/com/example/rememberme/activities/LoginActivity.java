@@ -3,8 +3,10 @@ package com.example.rememberme.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -12,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rememberme.Models.Product;
 import com.example.rememberme.R;
+import com.example.rememberme.SingletonClass;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -35,14 +39,16 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class LoginActivity extends AppCompatActivity {
-
-    Button callSignUp, login_btn, mail_btn;
+    private String TAG = "Login Activity";
+    Button login_btn, mail_btn;
     ImageView image;
-    TextView logoText, sloganText;
+    TextView logoText, sloganText, callSignUp;
     TextInputLayout username, password;
     private GoogleSignInClient mGoogleSignInClient;
     private final static int RC_SIGN_IN = 123;
     private FirebaseAuth mAuth;
+
+    final SingletonClass singletonClass = SingletonClass.getInstance();
 
     @Override
     protected void onStart() {
@@ -50,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            Intent intent = new Intent(this, BarcodeScannerActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         }
     }
@@ -109,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (ApiException e) {
                 Toast.makeText(this, "Successfully log in", Toast.LENGTH_SHORT).show();
                 // Google Sign In failed, update UI appropriately
-                Intent intent = new Intent(LoginActivity.this, BarcodeScannerActivity.class);
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         }
@@ -141,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext(), BarcodeScannerActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.

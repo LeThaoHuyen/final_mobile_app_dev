@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.RememberMe" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant"></item>
-        <item name="colorOnPrimary"></item>
+        <item name="colorPrimary">@color/my_yellow</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary"></item>
-        <item name="colorSecondaryVariant"></item>
-        <item name="colorOnSecondary"></item>
+        <item name="colorSecondary">@color/my_yellow</item>
+        <item name="colorSecondaryVariant">@color/black</item>
+        <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

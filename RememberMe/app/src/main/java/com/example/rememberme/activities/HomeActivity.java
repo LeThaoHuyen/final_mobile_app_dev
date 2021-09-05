@@ -5,7 +5,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -21,8 +23,18 @@ import com.example.rememberme.Models.Product;
 import com.example.rememberme.R;
 import com.example.rememberme.RecyclerViewAdapter;
 import com.example.rememberme.SingletonClass;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,7 +49,7 @@ public class HomeActivity extends AppCompatActivity
     final SingletonClass singletonClass = SingletonClass.getInstance();
 
     //Todo: declare UI components
-    //Button btn_addOne;
+    private FloatingActionButton floatButton;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private NavigationView navigationView;
@@ -47,15 +59,15 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        //loadData();
-        fillCelebList();
+        setup();
         Log.d(TAG, "OnCreate: " + singletonClass.toString());
 
-        /*-----------------------------------------------------*/
+        /**-----------------------------------------------------**/
         // Todo find UI components
         drawerLayout = findViewById(R.id.drawer_layout);
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.nav_view);
+        floatButton = findViewById(R.id.add_button);
 
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
@@ -64,21 +76,72 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-        /*-----------------------------------------------------*/
+        /**-----------------------------------------------------**/
 
-        /*---------------------Recycler view-------------------*/
+        /**---------------------Recycler view-------------------**/
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-      //  nAdapter = new RecyclerViewAdapter((List) singletonClass.getProductList(), this);
+        /**-----------------------------------------------------**/
 
-        //recyclerView.setAdapter(nAdapter);
-        nAdapter = new RecyclerViewAdapter(singletonClass.getProductList(), HomeActivity.this);
-        recyclerView.setAdapter(nAdapter);
-        /*-----------------------------------------------------*/
+        /**----------------Floating button----------------------**/
+        floatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, BarcodeScannerActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void setup() {
+        // TODO: get current user ID
+        singletonClass.setUserID("ew5QKmpCHEPCkAZPChxGKSzf0kw2");
+        final String userID = singletonClass.getUserID().trim();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Products");
+        Query checkUser = reference.child(userID).orderByChild("id").equalTo(1);
+
+        if (singletonClass.getCount()!=0)
+            singletonClass.clear();
+
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            int idProduct = postSnapshot.child("id").getValue(Integer.class);
+                            String nameProduct = postSnapshot.child("name").getValue(String.class);
+                            String expProduct = postSnapshot.child("date").getValue(String.class);
+                            String urlProduct = postSnapshot.child("imageURL").getValue(String.class);
+                            String seriProduct = postSnapshot.child("seriNum").getValue(String.class);
+
+                            Product x = new Product(idProduct, nameProduct, expProduct, urlProduct, seriProduct);
+                            singletonClass.addItem(x);
+                            Log.d(TAG, String.valueOf(singletonClass.getCount()));
+                            Log.d(TAG, "Successful");
+                            Log.d(TAG, nameProduct);
+
+                        }
+                        nAdapter = new RecyclerViewAdapter(singletonClass.getProductList(), HomeActivity.this);
+                        recyclerView.setAdapter(nAdapter);
+                    } else{
+                        Log.d(TAG, "No such document");
+                    }
+                } catch (Exception e){
+                    Log.d(TAG, "Fail", e);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -88,7 +151,8 @@ public class HomeActivity extends AppCompatActivity
             //TODO
         }
         else if (id == R.id.nav_logout){
-
+            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+            startActivity(intent);
         }
         else if (id == R.id.nav_support){
 
@@ -108,8 +172,9 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void fillCelebList() {
-        Product c1 = new Product(1, "G-Dragon", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
+        singletonClass.setUserID("ew5QKmpCHEPCkAZPChxGKSzf0kw2");
 
+        Product c1 = new Product(1, "G-Dragon", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
         Product c2 = new Product(2, "Daesung", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
         Product c4 = new Product(4, "TOP", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
         Product c5 = new Product(5, "Seungri", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");

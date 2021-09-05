@@ -13,7 +13,10 @@
         //android:name=".SingletonClass">
         //tools:ignore="Instantiatable">
 
-        <activity android:name=".activities.BarcodeScannerActivity">
+        <activity android:name=".activities.SplashScreenActivity"/>
+
+
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,15 +24,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.HomeActivity"/>
-        <activity android:name=".activities.AddProductActivity"
+        <activity android:name=".activities.BarcodeScannerActivity"
             android:screenOrientation="portrait">
         </activity>
 
-
+        <activity android:name=".activities.AddProductActivity"/>
         <activity android:name=".activities.SignUpActivity"/>
 
-        <activity android:name=".activities.SplashScreenActivity"/>
+
+        <activity android:name=".activities.HomeActivity"/>
         <activity android:name=".activities.EditProductActivity"/>
 
         <receiver

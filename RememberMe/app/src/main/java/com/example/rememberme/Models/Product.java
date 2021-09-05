@@ -1,5 +1,12 @@
 package com.example.rememberme.Models;
 
+import androidx.annotation.NonNull;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 public class Product {
     private int id;
     private String name;
@@ -15,6 +22,17 @@ public class Product {
         this.imageURL = imageURL;
         this.seriNum = seriNum;
     }
+
+    /*
+    public String getTimeLeft(){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date startdate = sdf.parse(date);
+        Date endDate = Calendar.getInstance().getTime();
+        long diff = endDate.getTime() - startDate.getTime();
+        System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+        return String(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + "days left";
+    }*/
 
     public String getSeriNum() {
         return seriNum;
