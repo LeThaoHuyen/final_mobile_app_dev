@@ -116,16 +116,25 @@ public class HomeActivity extends AppCompatActivity
         reference.child(userID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    int idProduct = dataSnapshot.child("id").getValue(Integer.class);
-                    String nameProduct = dataSnapshot.child("name").getValue(String.class);
-                    String expProduct = dataSnapshot.child("date").getValue(String.class);
-                    String urlProduct = dataSnapshot.child("imageURL").getValue(String.class);
-                    String seriProduct = dataSnapshot.child("seriNum").getValue(String.class);
+                try {
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String idProduct = dataSnapshot.child("id").getValue(String.class);
+                            String nameProduct = dataSnapshot.child("name").getValue(String.class);
+                            String expProduct = dataSnapshot.child("date").getValue(String.class);
+                            String urlProduct = dataSnapshot.child("imageURL").getValue(String.class);
+                            String seriProduct = dataSnapshot.child("seriNum").getValue(String.class);
 
-                    Product x = new Product(idProduct,nameProduct, expProduct, urlProduct, seriProduct);
-                    singletonClass.addItem(x);
+                            Product x = new Product(1, nameProduct, expProduct, urlProduct, seriProduct);
+                            singletonClass.addItem(x);
+                            Log.d(TAG, "Successful");
 
+                        }
+                    } else{
+                        Log.d(TAG, "No such document");
+                    }
+                } catch (Exception e){
+                    Log.d(TAG, "Fail", e);
                 }
             }
 
