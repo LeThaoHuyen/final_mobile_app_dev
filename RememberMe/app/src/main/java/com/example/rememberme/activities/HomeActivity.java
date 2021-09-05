@@ -23,6 +23,7 @@ import com.example.rememberme.RecyclerViewAdapter;
 import com.example.rememberme.SingletonClass;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
@@ -72,7 +73,10 @@ public class HomeActivity extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        nAdapter = new RecyclerViewAdapter((List) singletonClass.getProductList(), this);
+      //  nAdapter = new RecyclerViewAdapter((List) singletonClass.getProductList(), this);
+
+        //recyclerView.setAdapter(nAdapter);
+        nAdapter = new RecyclerViewAdapter(singletonClass.getProductList(), HomeActivity.this);
         recyclerView.setAdapter(nAdapter);
         /*-----------------------------------------------------*/
     }
@@ -114,9 +118,7 @@ public class HomeActivity extends AppCompatActivity
         Product c8 = new Product(8, "Jennie", "YG Entertainment", "https://i.pinimg.com/736x/5e/fe/da/5efeda3f61e1f446f8716d585ed3d40d.jpg", "1");
         Product c9 = new Product(9, "Jisoo", "YG Entertainment", "https://i.pinimg.com/736x/5e/fe/da/5efeda3f61e1f446f8716d585ed3d40d.jpg", "1");
 
-        for (int i = 0; i < 8; i++) {
-            singletonClass.addItem(c1);
-        }
+        singletonClass.getProductList().addAll(Arrays.asList(new Product[]{c1,c2,c4,c5,c6,c7,c8,c9}));
     }
 
 }

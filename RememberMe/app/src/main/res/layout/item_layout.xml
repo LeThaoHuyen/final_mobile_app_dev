@@ -8,7 +8,7 @@
     android:orientation="horizontal"
     android:layout_marginTop="20dp"
     android:layout_gravity="center_horizontal"
-    android:id="@+id/item_fragment">
+    android:id="@+id/item_layout">
     <LinearLayout
         android:id="@+id/product_view"
         android:layout_width="match_parent"
