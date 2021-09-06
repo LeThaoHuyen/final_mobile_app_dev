@@ -25,17 +25,6 @@ public class Product {
         this.seriNum = seriNum;
     }
 
-    /*
-    public String getTimeLeft(){
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date startdate = sdf.parse(date);
-        Date endDate = Calendar.getInstance().getTime();
-        long diff = endDate.getTime() - startDate.getTime();
-        System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
-        return String(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + "days left";
-    }*/
-
     public String getTimeLeft() {
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

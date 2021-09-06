@@ -150,7 +150,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.itemName.setText(productList.get(position).getName());
-        holder.itemExpDate.setText(productList.get(position).getDate());
+        holder.itemExpDate.setText(productList.get(position).getTimeLeft());
         Glide.with(this.context).load(productList.get(position).getImageURL()).into(holder.itemImage);
 
         holder.setItemClickListener(new ItemClickListener() {

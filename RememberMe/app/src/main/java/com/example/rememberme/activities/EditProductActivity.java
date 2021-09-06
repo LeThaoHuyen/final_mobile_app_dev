@@ -66,6 +66,7 @@ public class EditProductActivity extends AppCompatActivity{
 
     String timeToNotify;
     DatabaseClass databaseClass;
+    String URLSave;
 
     ImageView imageView;
     EditText et_name, et_serialNum, et_expDate;
@@ -83,25 +84,13 @@ public class EditProductActivity extends AppCompatActivity{
         et_name = (EditText) findViewById(R.id.edittext_product_name);
         et_expDate = (EditText) findViewById(R.id.edittext_expiry_date);
         et_serialNum = (EditText) findViewById(R.id.edittext_series_ID);
+        imageView = findViewById(R.id.imageView);
 
         et_name.setText(itemList.getCurrentProduct().getName());
         et_expDate.setText(itemList.getCurrentProduct().getDate());
         et_serialNum.setText(itemList.getCurrentProduct().getSeriNum());
-
-        btn_time = findViewById(R.id.btn_time);
-        btn_time.setOnClickListener((view) -> {
-            Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
-            TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                    timeToNotify = i + ":" + i1;
-                    btn_time.setText(FormatTime(i, i1));
-                }
-            }, hour, minute, false);
-            timePickerDialog.show();
-        });
+        URLSave = itemList.getCurrentProduct().getImageURL();
+        Glide.with(getApplicationContext()).load(URLSave).into(imageView);
 
         btn_date = findViewById(R.id.btn_date);
         btn_date.setOnClickListener((view) -> {
@@ -126,7 +115,6 @@ public class EditProductActivity extends AppCompatActivity{
                 String expDateSave = et_expDate.getText().toString();
                 String seriSave = et_serialNum.getText().toString();
 
-                String URLSave = "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1";
                 Product x = new Product(itemList.getProductID(), nameSave, expDateSave, URLSave, seriSave);
                 itemList.getProductList().remove(itemList.getCurrentProduct());
                 itemList.addItem(x);
@@ -141,7 +129,6 @@ public class EditProductActivity extends AppCompatActivity{
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
 
-                // Todo: show product info taken from barcode....
                 //set Notification
                 if (btn_time.getText().toString().equals("Select Time") || btn_date.getText().toString().equals("Select date")) {
                     Toast.makeText(this, "Please select date and time", Toast.LENGTH_SHORT).show();
@@ -160,20 +147,16 @@ public class EditProductActivity extends AppCompatActivity{
             }
 
 
-
         });
 
         btn_cancel = findViewById(R.id.btn_cancel);
         btn_cancel.setOnClickListener((view) -> {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
-
-
         });
     }
 
     public String FormatTime(int hour, int minute) {
-
         String time;
         time = "";
         String formattedMinute;

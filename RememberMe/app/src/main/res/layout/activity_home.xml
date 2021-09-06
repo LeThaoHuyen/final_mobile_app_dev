@@ -31,6 +31,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="top"
             android:paddingLeft="8dp"
+            android:paddingTop="60dp"
             android:paddingRight="8dp">
 
         </androidx.recyclerview.widget.RecyclerView>

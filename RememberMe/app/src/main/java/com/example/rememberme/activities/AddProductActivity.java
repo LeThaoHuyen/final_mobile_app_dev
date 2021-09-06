@@ -55,7 +55,8 @@ public class AddProductActivity extends AppCompatActivity {
     FirebaseDatabase rootNode;
     DatabaseReference reference;
 
-    String timeToNotify = 9 + ":" + 0;
+    String timeToNotify = 3 + ":" + 40;
+    String URLSave = "https://cdn.iconscout.com/icon/free/png-256/delivery-box-1835709-1556268.png";
     DatabaseClass databaseClass;
 
     // variables
@@ -124,26 +125,7 @@ public class AddProductActivity extends AppCompatActivity {
             String seriSave = et_serialNum.getText().toString();
             int idSave = productList.getCount();
 
-            String URLSave = "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1";
-            Product x = new Product(idSave, nameSave, expDateSave, URLSave, seriSave);
-            productList.addItem(x);
-
-            rootNode = FirebaseDatabase.getInstance();
-            reference = rootNode.getReference("Products");
-            int id = productList.getProductID();
-
-
-            //add that product
-            reference.child(productList.getUserID()).child(String.valueOf(x.getId())).setValue(x);
-
-            //reference.child(productList.getUsernameAcc()).setValue(x);
-
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-
-            // Todo: show product info taken from barcode....
-
-            //set Notification
+            /** set Notification **/
             if (btn_date.getText().toString().equals("Select date")) {
                 Toast.makeText(this, "Please select date", Toast.LENGTH_SHORT).show();
             } else {
@@ -158,7 +140,20 @@ public class AddProductActivity extends AppCompatActivity {
                 setAlarm(nameSave, date);
             }
 
-            // Todo: print out toast to notify "Add successfully"
+            /** save product **/
+            Product x = new Product(idSave, nameSave, expDateSave, URLSave, seriSave);
+            productList.addItem(x);
+
+            rootNode = FirebaseDatabase.getInstance();
+            reference = rootNode.getReference("Products");
+
+            //add that product
+            reference.child(productList.getUserID()).child(String.valueOf(x.getId())).setValue(x);
+
+            /** return home activity **/
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+
         });
 
         btn_cancel.setOnClickListener((view) -> {
@@ -178,9 +173,9 @@ public class AddProductActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         String name = document.getString("name");
-                        String imageUrl = document.getString("imageUrl");
+                        URLSave = document.getString("imageUrl");
                         et_name.setText(name);
-                        Glide.with(getApplicationContext()).load(imageUrl).into(imageView);
+                        Glide.with(getApplicationContext()).load(URLSave).into(imageView);
                     } else {
                         Log.d(TAG, "No such document");
                     }

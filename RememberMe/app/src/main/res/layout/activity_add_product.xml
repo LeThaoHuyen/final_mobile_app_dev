@@ -60,7 +60,7 @@
                 android:textColor="@color/black"
                 android:textColorHint="#616A6B"
                 android:textSize="17sp"
-                android:textStyle="bold|italic" />
+                android:textStyle="italic" />
 
         </LinearLayout>
 
