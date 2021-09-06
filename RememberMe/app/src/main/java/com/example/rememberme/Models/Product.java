@@ -1,6 +1,7 @@
 package com.example.rememberme.Models;
 
 import android.app.AlarmManager;
+import android.provider.CalendarContract;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,7 +30,7 @@ public class Product {
     }
 
     public String getTimeLeft() {
-        DateFormat formatter = new SimpleDateFormat("d/M/yyyy");
+        DateFormat formatter = new SimpleDateFormat("d-M-yyyy");
         Date expDate = null;
 
         try {
