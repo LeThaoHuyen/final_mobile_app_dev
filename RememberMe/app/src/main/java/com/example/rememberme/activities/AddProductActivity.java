@@ -131,7 +131,12 @@ public class AddProductActivity extends AppCompatActivity {
             productList.addItem(x);
 
             rootNode = FirebaseDatabase.getInstance();
-            reference = rootNode.getReference("products");
+            reference = rootNode.getReference("Products");
+            int id = productList.getProductID();
+
+
+            //add that product
+            reference.child(productList.getUserID()).child(String.valueOf(x.getId())).setValue(x);
 
             //reference.child(productList.getUsernameAcc()).setValue(x);
 
