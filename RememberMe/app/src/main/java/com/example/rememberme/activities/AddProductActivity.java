@@ -55,7 +55,7 @@ public class AddProductActivity extends AppCompatActivity {
     FirebaseDatabase rootNode;
     DatabaseReference reference;
 
-    String timeToNotify = 17 + ":" + 40;
+    String timeToNotify = 9 + ":" + 0;
     String URLSave = "https://cdn.iconscout.com/icon/free/png-256/delivery-box-1835709-1556268.png";
     DatabaseClass databaseClass;
 
@@ -131,7 +131,7 @@ public class AddProductActivity extends AppCompatActivity {
             } else {
                 EntityClass entityClass = new EntityClass();
                 String date = (btn_date.getText().toString().trim());
-                String time = FormatTime(17,40);
+                String time = FormatTime(9,0);
                 //String time = (btn_time.getText().toString().trim());
                 entityClass.setEventdate(date);
                 entityClass.setEventname(nameSave);

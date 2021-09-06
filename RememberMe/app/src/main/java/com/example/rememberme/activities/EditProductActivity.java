@@ -64,14 +64,14 @@ public class EditProductActivity extends AppCompatActivity{
     DatabaseReference reference;
     final SingletonClass itemList = SingletonClass.getInstance();
 
-    String timeToNotify;
+    String timeToNotify = 9 + ":" + 0;
     DatabaseClass databaseClass;
     String URLSave;
 
     ImageView imageView;
     EditText et_name, et_serialNum, et_expDate;
     Button btn_addOne, btn_cancel;
-    Button btn_time, btn_date;
+    Button btn_date;
     TextView actionEvent;
 
 
@@ -129,13 +129,14 @@ public class EditProductActivity extends AppCompatActivity{
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
 
-                //set Notification
-                if (btn_time.getText().toString().equals("Select Time") || btn_date.getText().toString().equals("Select date")) {
-                    Toast.makeText(this, "Please select date and time", Toast.LENGTH_SHORT).show();
+                /** set Notification **/
+                if (btn_date.getText().toString().equals("Select date")) {
+                    Toast.makeText(this, "Please select date", Toast.LENGTH_SHORT).show();
                 } else {
                     EntityClass entityClass = new EntityClass();
                     String date = (btn_date.getText().toString().trim());
-                    String time = (btn_time.getText().toString().trim());
+                    String time = FormatTime(9,0);
+                    //String time = (btn_time.getText().toString().trim());
                     entityClass.setEventdate(date);
                     entityClass.setEventname(nameSave);
                     entityClass.setEventtime(time);
@@ -157,8 +158,7 @@ public class EditProductActivity extends AppCompatActivity{
     }
 
     public String FormatTime(int hour, int minute) {
-        String time;
-        time = "";
+        String time = "";
         String formattedMinute;
 
         if (minute / 10 == 0) {
@@ -166,7 +166,6 @@ public class EditProductActivity extends AppCompatActivity{
         } else {
             formattedMinute = "" + minute;
         }
-
 
         if (hour == 0) {
             time = "12" + ":" + formattedMinute + " AM";
