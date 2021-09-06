@@ -1,5 +1,7 @@
 package com.example.rememberme.Models;
 
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
 import java.text.SimpleDateFormat;
@@ -14,7 +16,7 @@ public class Product {
     private String imageURL;
     private String seriNum;
 
-    public Product () {};
+    public Product () {}
     public Product(int id, String name, String date, String imageURL, String seriNum) {
         this.id = id;
         this.name = name;
@@ -33,6 +35,27 @@ public class Product {
         System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
         return String(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + "days left";
     }*/
+
+    public String getTimeLeft() {
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date expDate = formatter.parse(date);
+            Calendar exp_Date = Calendar.getInstance();
+            exp_Date.setTime(expDate);
+
+            Calendar today = Calendar.getInstance();
+
+            long diff = exp_Date.getTimeInMillis() - today.getTimeInMillis();
+            long days = diff / (24 * 60 * 60 * 1000);
+            String dayDifference = Long.toString(days);
+
+            return (dayDifference + " days left");
+
+        } catch (Exception exception) {
+            //Toast.makeText(this, "Unable to find difference", Toast.LENGTH_SHORT).show();
+            return "Unable to find difference";
+        }
+    }
 
     public String getSeriNum() {
         return seriNum;
