@@ -21,8 +21,7 @@ public class AlarmBroadcast extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
         String text = bundle.getString("event");
-        String date = bundle.getString("date");
-        //+ " " + bundle.getString("time");
+        String date = bundle.getString("date") + " " + bundle.getString("time");
 
         //Click on Notification
 

@@ -55,7 +55,7 @@ public class AddProductActivity extends AppCompatActivity {
     FirebaseDatabase rootNode;
     DatabaseReference reference;
 
-    String timeToNotify = 17 + ":" + 12;
+    String timeToNotify = 17 + ":" + 40;
     String URLSave = "https://cdn.iconscout.com/icon/free/png-256/delivery-box-1835709-1556268.png";
     DatabaseClass databaseClass;
 
@@ -131,13 +131,13 @@ public class AddProductActivity extends AppCompatActivity {
             } else {
                 EntityClass entityClass = new EntityClass();
                 String date = (btn_date.getText().toString().trim());
-                //String time = FormatTime(9,0);
+                String time = FormatTime(17,40);
                 //String time = (btn_time.getText().toString().trim());
                 entityClass.setEventdate(date);
                 entityClass.setEventname(nameSave);
-                //entityClass.setEventtime(time);
+                entityClass.setEventtime(time);
                 databaseClass.EventDao().insertAll(entityClass);
-                setAlarm(nameSave, date);
+                setAlarm(nameSave, date, time);
             }
 
             /** save product **/
@@ -224,13 +224,13 @@ public class AddProductActivity extends AppCompatActivity {
 
     }
 
-    private void setAlarm(String text, String date) {
+    private void setAlarm(String text, String date, String time) {
         AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(getApplicationContext(), AlarmBroadcast.class);
         intent.putExtra("event", text);
         intent.putExtra("time", date);
-        //intent.putExtra("date", time);
+        intent.putExtra("date", time);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
         String dateandtime = date + " " + timeToNotify;
