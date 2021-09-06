@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RememberMe</string>
+    <string name="open_nav_view">Open navigation view</string>
+    <string name="close_nav_view">Close navigation view</string>
+</resources>
