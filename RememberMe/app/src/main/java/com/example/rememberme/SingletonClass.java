@@ -13,6 +13,7 @@ public class SingletonClass {
     private static List<Product> productList = new ArrayList<>();
     private static Product currentProduct;
     public static String userID;
+    public static int notifyDays;
     public static int count =0;
     public static SingletonClass getInstance(){
         if (singleton == null){
@@ -60,6 +61,7 @@ public class SingletonClass {
     public int getCount() { return count; }
     public String getUserID() { return userID; }
     public void setUserID(String userID){ this.userID = userID; }
+    public int getNotifyDays(){return notifyDays;};
 }
 
 /*

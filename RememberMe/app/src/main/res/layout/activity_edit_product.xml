@@ -37,12 +37,13 @@
 
             <EditText
                 android:id="@+id/edittext_series_ID"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:alpha=".8"
                 android:padding="8dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="15dp"
+                android:layout_margin="15dp"
                 android:background="@drawable/background_text"
                 android:hint="series_ID"
                 android:textColor="@color/black"
@@ -58,6 +59,7 @@
                 android:background="@drawable/background_text"
                 android:layout_margin="15dp"
                 android:hint="Product name"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold|italic" />
 
@@ -105,6 +107,7 @@
                 android:layout_height="match_parent"
                 android:padding="10dp"
                 android:text="Message"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:background="#00ffffff" />
 

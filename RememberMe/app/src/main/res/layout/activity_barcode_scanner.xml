@@ -81,7 +81,7 @@
             android:text="Add without barcode"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="17sp"
             app:backgroundTint="@android:color/transparent"
             app:cornerRadius="8dp"
             app:rippleColor="#33AAAAAA"

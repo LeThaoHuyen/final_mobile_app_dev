@@ -75,11 +75,19 @@ public class AddProductActivity extends AppCompatActivity {
         et_name = (EditText) findViewById(R.id.edittext_product_name);
         et_expDate = (EditText) findViewById(R.id.edittext_expiry_date);
         et_serialNum = (EditText) findViewById(R.id.edittext_series_ID);
-
         btn_time = findViewById(R.id.btn_time);
         btn_date = findViewById(R.id.btn_date);
 
-        getProductInfoFromSerialNum(serialNum);
+        Bundle extras = getIntent().getExtras();
+        String serialNum = extras.getString("serialNum");
+
+        if (serialNum != "Barcode") {
+            getProductInfoFromSerialNum(serialNum);
+        }
+        else{
+            et_serialNum.setText(serialNum);
+        }
+
         databaseClass = DatabaseClass.getDatabase(getApplicationContext());
 
         btn_time.setOnClickListener((view) -> {
@@ -109,16 +117,6 @@ public class AddProductActivity extends AppCompatActivity {
             }, year, month, day);
             datePickerDialog.show();
         });
-
-        Bundle extras = getIntent().getExtras();
-        String serialNum = extras.getString("serialNum");
-
-        if (serialNum != "Barcode") {
-            getProductInfoFromSerialNum(serialNum);
-        }
-        else{
-            et_serialNum.setText(serialNum);
-        }
 
         btn_ok.setOnClickListener((view) -> {
             String nameSave = et_name.getText().toString();
@@ -209,7 +207,6 @@ public class AddProductActivity extends AppCompatActivity {
             time = temp + ":" + formattedMinute + " PM";
         }
 
-
         return time;
     }
 
@@ -243,9 +240,7 @@ public class AddProductActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         finish();
-
     }
 }
 
