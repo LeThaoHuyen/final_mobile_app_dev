@@ -26,9 +26,15 @@ public class Product {
     }
 
     public String getTimeLeft() {
-        try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date expDate = formatter.parse(date);
+            Date expDate = null;
+            try {
+                expDate = formatter.parse(date);//catch exception
+            } catch (Exception exception) {
+                //Toast.makeText(this, "Unable to find difference", Toast.LENGTH_SHORT).show();
+                return "Unable to find difference";
+            }
+
             Calendar exp_Date = Calendar.getInstance();
             exp_Date.setTime(expDate);
 
@@ -40,10 +46,7 @@ public class Product {
 
             return (dayDifference + " days left");
 
-        } catch (Exception exception) {
-            //Toast.makeText(this, "Unable to find difference", Toast.LENGTH_SHORT).show();
-            return "Unable to find difference";
-        }
+
     }
 
     public String getSeriNum() {
