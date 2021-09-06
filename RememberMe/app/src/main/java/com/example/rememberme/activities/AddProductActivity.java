@@ -142,7 +142,8 @@ public class AddProductActivity extends AppCompatActivity {
             startActivity(intent);
 
             // Todo: show product info taken from barcode....
-            // Todo: print out toast to notify "Add successfully"
+
+            //set Notification
             if (btn_time.getText().toString().equals("Select Time") || btn_date.getText().toString().equals("Select date")) {
                 Toast.makeText(this, "Please select date and time", Toast.LENGTH_SHORT).show();
             } else {
@@ -156,6 +157,7 @@ public class AddProductActivity extends AppCompatActivity {
                 setAlarm(nameSave, date, time);
             }
 
+            // Todo: print out toast to notify "Add successfully"
         });
 
         btn_cancel.setOnClickListener((view) -> {
