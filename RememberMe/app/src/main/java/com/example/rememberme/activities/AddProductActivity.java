@@ -55,7 +55,7 @@ public class AddProductActivity extends AppCompatActivity {
     FirebaseDatabase rootNode;
     DatabaseReference reference;
 
-    String timeToNotify;
+    String timeToNotify = 9 + ":" + 0;
     DatabaseClass databaseClass;
 
     // variables
@@ -75,7 +75,7 @@ public class AddProductActivity extends AppCompatActivity {
         et_name = (EditText) findViewById(R.id.edittext_product_name);
         et_expDate = (EditText) findViewById(R.id.edittext_expiry_date);
         et_serialNum = (EditText) findViewById(R.id.edittext_series_ID);
-        btn_time = findViewById(R.id.btn_time);
+        //btn_time = findViewById(R.id.btn_time);
         btn_date = findViewById(R.id.btn_date);
 
         Bundle extras = getIntent().getExtras();
@@ -90,7 +90,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         databaseClass = DatabaseClass.getDatabase(getApplicationContext());
 
-        btn_time.setOnClickListener((view) -> {
+        /*btn_time.setOnClickListener((view) -> {
             Calendar calendar = Calendar.getInstance();
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             int minute = calendar.get(Calendar.MINUTE);
@@ -102,7 +102,7 @@ public class AddProductActivity extends AppCompatActivity {
                 }
             }, hour, minute, false);
             timePickerDialog.show();
-        });
+        });*/
 
         btn_date.setOnClickListener((view) -> {
             Calendar calendar = Calendar.getInstance();
@@ -112,7 +112,7 @@ public class AddProductActivity extends AppCompatActivity {
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                    btn_date.setText(day + "-" + (month + 1) + "-" + year);
+                    btn_date.setText(day + "/" + (month + 1) + "/" + year);
                 }
             }, year, month, day);
             datePickerDialog.show();
@@ -144,12 +144,13 @@ public class AddProductActivity extends AppCompatActivity {
             // Todo: show product info taken from barcode....
 
             //set Notification
-            if (btn_time.getText().toString().equals("Select Time") || btn_date.getText().toString().equals("Select date")) {
-                Toast.makeText(this, "Please select date and time", Toast.LENGTH_SHORT).show();
+            if (btn_date.getText().toString().equals("Select date")) {
+                Toast.makeText(this, "Please select date", Toast.LENGTH_SHORT).show();
             } else {
                 EntityClass entityClass = new EntityClass();
                 String date = (btn_date.getText().toString().trim());
-                String time = (btn_time.getText().toString().trim());
+                String time = FormatTime(9,0);
+                //String time = (btn_time.getText().toString().trim());
                 entityClass.setEventdate(date);
                 entityClass.setEventname(nameSave);
                 entityClass.setEventtime(time);
@@ -192,8 +193,7 @@ public class AddProductActivity extends AppCompatActivity {
 
     public String FormatTime(int hour, int minute) {
 
-        String time;
-        time = "";
+        String time = "";
         String formattedMinute;
 
         if (minute / 10 == 0) {

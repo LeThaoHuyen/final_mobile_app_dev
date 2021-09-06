@@ -14,7 +14,6 @@ public class EntityClass {
     @ColumnInfo(name = "eventdate")
     String eventdate;
     @ColumnInfo(name = "eventtime")
-
     String eventtime;
 
 
