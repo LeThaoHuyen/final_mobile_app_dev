@@ -5,32 +5,37 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.Settings;
 import android.speech.RecognizerIntent;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TimePicker;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.example.rememberme.ImagePicker.ImagePickerActivity;
 import com.example.rememberme.R;
 import com.example.rememberme.SetNotificationHelper.AlarmBroadcast;
 import com.example.rememberme.SetNotificationHelper.Database.DatabaseClass;
 import com.example.rememberme.SetNotificationHelper.Database.EntityClass;
 import com.example.rememberme.SingletonClass;
-import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -39,13 +44,27 @@ import com.example.rememberme.Models.Product;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import com.example.rememberme.ImagePicker.ImagePickerActivity;
+import com.example.rememberme.ImagePicker.MyGlideModule;
 
 
 public class AddProductActivity extends AppCompatActivity {
@@ -62,8 +81,14 @@ public class AddProductActivity extends AppCompatActivity {
     // variables
     Button btn_ok, btn_cancel;
     EditText et_name, et_serialNum, et_expDate;
-    ImageView imageView;
+    //ImageView imageView;
     Button btn_date;
+
+    // image picker
+    public static final int REQUEST_IMAGE = 100;
+
+    @BindView(R.id.product_image)
+    ImageView productImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +97,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         btn_ok = findViewById(R.id.btn_add);
         btn_cancel = findViewById(R.id.btn_cancel);
-        imageView = findViewById(R.id.product_image);
+        productImage = findViewById(R.id.product_image);
         et_name = (EditText) findViewById(R.id.edittext_product_name);
         et_expDate = (EditText) findViewById(R.id.edittext_expiry_date);
         et_serialNum = (EditText) findViewById(R.id.edittext_series_ID);
@@ -90,6 +115,15 @@ public class AddProductActivity extends AppCompatActivity {
         }
 
         databaseClass = DatabaseClass.getDatabase(getApplicationContext());
+
+        // Image Picker
+        ButterKnife.bind(this);
+        loadDefaultProduct();
+
+        // Clearing older images from cache directory
+        // don't call this line if you want to choose multiple images in the same activity
+        // call this once the bitmap(s) usage is over
+        ImagePickerActivity.clearCache(this);
 
         /*btn_time.setOnClickListener((view) -> {
             Calendar calendar = Calendar.getInstance();
@@ -113,7 +147,7 @@ public class AddProductActivity extends AppCompatActivity {
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                    btn_date.setText(day + "-" + (month + 1) + "-" + year);
+                    btn_date.setText(day + "/" + (month + 1) + "/" + year);
                 }
             }, year, month, day);
             datePickerDialog.show();
@@ -176,7 +210,7 @@ public class AddProductActivity extends AppCompatActivity {
                         String name = document.getString("name");
                         URLSave = document.getString("imageUrl");
                         et_name.setText(name);
-                        Glide.with(getApplicationContext()).load(URLSave).into(imageView);
+                        Glide.with(getApplicationContext()).load(URLSave).into(productImage);
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -188,7 +222,6 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
     public String FormatTime(int hour, int minute) {
-
         String time = "";
         String formattedMinute;
 
@@ -197,7 +230,6 @@ public class AddProductActivity extends AppCompatActivity {
         } else {
             formattedMinute = "" + minute;
         }
-
 
         if (hour == 0) {
             time = "12" + ":" + formattedMinute + " AM";
@@ -223,6 +255,21 @@ public class AddProductActivity extends AppCompatActivity {
             }
         }
 
+        if (requestCode == REQUEST_IMAGE) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri uri = data.getParcelableExtra("path");
+                try {
+                    // You can update this bitmap to your server
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+
+                    // loading product image from local cache
+                    loadProduct(uri.getPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
     private void setAlarm(String text, String date, String time) {
@@ -244,6 +291,116 @@ public class AddProductActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         finish();
+    }
+
+    // Image Picker
+    private void loadProduct(String url) {
+        Log.d(TAG, "Image cache path: " + url);
+
+        Glide.with(getApplicationContext()).load(url).into(productImage);
+
+        /*GlideApp.with(this).load(url)
+                .into(productImage);*/
+        productImage.setColorFilter(ContextCompat.getColor(this, android.R.color.transparent));
+    }
+
+    private void loadDefaultProduct() {
+        Glide.with(getApplicationContext()).load(R.drawable.background_white).into(productImage);
+
+        /*GlideApp.with(this).load(R.drawable.background_white)
+                .into(productImage);*/
+        productImage.setColorFilter(ContextCompat.getColor(this, R.color.white));
+    }
+
+    @OnClick({R.id.img_plus, R.id.product_image})
+    void onProfileImageClick() {
+        Dexter.withActivity(this)
+                .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if (report.areAllPermissionsGranted()) {
+                            showImagePickerOptions();
+                        }
+
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+                            showSettingsDialog();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+    }
+
+    private void showImagePickerOptions() {
+        ImagePickerActivity.showImagePickerOptions(this, new ImagePickerActivity.PickerOptionListener() {
+            @Override
+            public void onTakeCameraSelected() {
+                launchCameraIntent();
+            }
+
+            @Override
+            public void onChooseGallerySelected() {
+                launchGalleryIntent();
+            }
+        });
+    }
+
+    private void launchCameraIntent() {
+        Intent intent = new Intent(this, ImagePickerActivity.class);
+        intent.putExtra(ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION, ImagePickerActivity.REQUEST_IMAGE_CAPTURE);
+
+        // setting aspect ratio
+        intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true);
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
+
+        // setting maximum bitmap width and height
+        intent.putExtra(ImagePickerActivity.INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT, true);
+        intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_WIDTH, 1000);
+        intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_HEIGHT, 1000);
+
+        startActivityForResult(intent, REQUEST_IMAGE);
+    }
+
+    private void launchGalleryIntent() {
+        Intent intent = new Intent(this, ImagePickerActivity.class);
+        intent.putExtra(ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION, ImagePickerActivity.REQUEST_GALLERY_IMAGE);
+
+        // setting aspect ratio
+        intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true);
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
+        startActivityForResult(intent, REQUEST_IMAGE);
+    }
+
+    /**
+     * Showing Alert Dialog with Settings option
+     * Navigates user to app settings
+     * NOTE: Keep proper title and message depending on your app
+     */
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Grant Permissions");
+        builder.setMessage("This app needs permission to use this feature. You can grant them in app settings.");
+        builder.setPositiveButton("GoTo SETTINGS", (dialog, which) -> {
+            dialog.cancel();
+            openSettings();
+        });
+        builder.setNegativeButton(getString(android.R.string.cancel), (dialog, which) -> dialog.cancel());
+        builder.show();
+
+    }
+
+    // navigating user to app settings
+    private void openSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        intent.setData(uri);
+        startActivityForResult(intent, 101);
     }
 }
 

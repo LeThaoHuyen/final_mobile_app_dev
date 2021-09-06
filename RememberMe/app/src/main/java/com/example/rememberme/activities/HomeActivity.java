@@ -178,14 +178,14 @@ public class HomeActivity extends AppCompatActivity
     private void fillCelebList() {
         singletonClass.setUserID("ew5QKmpCHEPCkAZPChxGKSzf0kw2");
 
-        Product c1 = new Product(1, "G-Dragon", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
-        Product c2 = new Product(2, "Daesung", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
-        Product c4 = new Product(4, "TOP", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
-        Product c5 = new Product(5, "Seungri", "YG Entertainment", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
-        Product c6 = new Product(6, "Lisa", "YG Entertainment", "https://i.pinimg.com/736x/5e/fe/da/5efeda3f61e1f446f8716d585ed3d40d.jpg", "1");
-        Product c7 = new Product(7, "Rose", "YG Entertainment", "https://i.pinimg.com/736x/5e/fe/da/5efeda3f61e1f446f8716d585ed3d40d.jpg", "1");
-        Product c8 = new Product(8, "Jennie", "YG Entertainment", "https://i.pinimg.com/736x/5e/fe/da/5efeda3f61e1f446f8716d585ed3d40d.jpg", "1");
-        Product c9 = new Product(9, "Jisoo", "YG Entertainment", "https://i.pinimg.com/736x/5e/fe/da/5efeda3f61e1f446f8716d585ed3d40d.jpg", "1");
+        Product c1 = new Product(1, "G-Dragon", "8/9/2021", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
+        Product c2 = new Product(2, "Daesung", "7/9/2021", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
+        Product c4 = new Product(4, "TOP", "8/10/2021", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
+        Product c5 = new Product(5, "Seungri", "6/10/2021", "https://i2.wp.com/idoltv-website.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/18154319/big-bang-members-profile.jpg?fit=700%2C466&ssl=1", "1");
+        Product c6 = new Product(6, "Lisa", "8/10/2021", "https://i.pinimg.com/736x/5e/fe/da/5efeda3f61e1f446f8716d585ed3d40d.jpg", "1");
+        Product c7 = new Product(7, "Rose", "10/9/2021", "https://i.pinimg.com/736x/5e/fe/da/5efeda3f61e1f446f8716d585ed3d40d.jpg", "1");
+        Product c8 = new Product(8, "Jennie", "8/9/2021", "https://i.pinimg.com/736x/5e/fe/da/5efeda3f61e1f446f8716d585ed3d40d.jpg", "1");
+        Product c9 = new Product(9, "Jisoo", "8/9/2021", "https://i.pinimg.com/736x/5e/fe/da/5efeda3f61e1f446f8716d585ed3d40d.jpg", "1");
 
         singletonClass.getProductList().addAll(Arrays.asList(new Product[]{c1,c2,c4,c5,c6,c7,c8,c9}));
     }
