@@ -55,7 +55,7 @@ public class AddProductActivity extends AppCompatActivity {
     FirebaseDatabase rootNode;
     DatabaseReference reference;
 
-    String timeToNotify = 3 + ":" + 40;
+    String timeToNotify = 9 + ":" + 0;
     String URLSave = "https://cdn.iconscout.com/icon/free/png-256/delivery-box-1835709-1556268.png";
     DatabaseClass databaseClass;
 
@@ -113,7 +113,7 @@ public class AddProductActivity extends AppCompatActivity {
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                    btn_date.setText(day + "/" + (month + 1) + "/" + year);
+                    btn_date.setText(day + "-" + (month + 1) + "-" + year);
                 }
             }, year, month, day);
             datePickerDialog.show();
@@ -121,7 +121,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         btn_ok.setOnClickListener((view) -> {
             String nameSave = et_name.getText().toString();
-            String expDateSave = et_expDate.getText().toString();
+            String expDateSave = btn_date.getText().toString();
             String seriSave = et_serialNum.getText().toString();
             int idSave = productList.getCount();
 
@@ -131,13 +131,13 @@ public class AddProductActivity extends AppCompatActivity {
             } else {
                 EntityClass entityClass = new EntityClass();
                 String date = (btn_date.getText().toString().trim());
-                //String time = FormatTime(9,0);
+                String time = FormatTime(9,0);
                 //String time = (btn_time.getText().toString().trim());
                 entityClass.setEventdate(date);
                 entityClass.setEventname(nameSave);
-                //entityClass.setEventtime(time);
+                entityClass.setEventtime(time);
                 databaseClass.EventDao().insertAll(entityClass);
-                setAlarm(nameSave, date);
+                setAlarm(nameSave, date, time);
             }
 
             /** save product **/
@@ -224,13 +224,13 @@ public class AddProductActivity extends AppCompatActivity {
 
     }
 
-    private void setAlarm(String text, String date) {
+    private void setAlarm(String text, String date, String time) {
         AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(getApplicationContext(), AlarmBroadcast.class);
         intent.putExtra("event", text);
         intent.putExtra("time", date);
-        //intent.putExtra("date", time);
+        intent.putExtra("date", time);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
         String dateandtime = date + " " + timeToNotify;

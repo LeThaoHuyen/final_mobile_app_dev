@@ -1,9 +1,12 @@
 package com.example.rememberme.Models;
 
+import android.app.AlarmManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,27 +29,25 @@ public class Product {
     }
 
     public String getTimeLeft() {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date expDate = null;
-            try {
-                expDate = formatter.parse(date);//catch exception
-            } catch (Exception exception) {
-                //Toast.makeText(this, "Unable to find difference", Toast.LENGTH_SHORT).show();
-                return "Unable to find difference";
-            }
+        DateFormat formatter = new SimpleDateFormat("d/M/yyyy");
+        Date expDate = null;
 
-            Calendar exp_Date = Calendar.getInstance();
-            exp_Date.setTime(expDate);
+        try {
+            expDate = formatter.parse(date);//catch exception
+        } catch (ParseException exception) {
+            //Toast.makeText(this, "Unable to find difference", Toast.LENGTH_SHORT).show();
+            return "Unable to find difference";
+        }
+        Calendar exp_Date = Calendar.getInstance();
+        exp_Date.setTime(expDate);
 
-            Calendar today = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
 
-            long diff = exp_Date.getTimeInMillis() - today.getTimeInMillis();
-            long days = diff / (24 * 60 * 60 * 1000);
-            String dayDifference = Long.toString(days);
+        long diff = exp_Date.getTimeInMillis() - today.getTimeInMillis();
+        long days = diff / (24 * 60 * 60 * 1000);
+        String dayDifference = Long.toString(days);
 
-            return (dayDifference + " days left");
-
-
+        return (dayDifference + " days left");
     }
 
     public String getSeriNum() {
