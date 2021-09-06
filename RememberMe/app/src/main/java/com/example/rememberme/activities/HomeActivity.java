@@ -103,7 +103,7 @@ public class HomeActivity extends AppCompatActivity
 
     private void setup() {
         // TODO: get current user ID
-        singletonClass.setUserID("ew5QKmpCHEPCkAZPChxGKSzf0kw2");
+        //singletonClass.setUserID("ew5QKmpCHEPCkAZPChxGKSzf0kw2");
         final String userID = singletonClass.getUserID().trim();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Products");

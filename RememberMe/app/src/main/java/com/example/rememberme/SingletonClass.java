@@ -15,6 +15,7 @@ public class SingletonClass {
     public static String userID;
     public static int notifyDays;
     public static int count =0;
+    public static int realCount=0;
     public static SingletonClass getInstance(){
         if (singleton == null){
             singleton = new SingletonClass();
@@ -41,14 +42,16 @@ public class SingletonClass {
     {
         productList.clear();
         count = 0;
+        realCount = 0;
     }
     public void addItem(Product x){
         productList.add(x);
         count++;
+        realCount++;
     }
     public void removeItem(Product x){
         productList.remove(x);
-        count--;
+        realCount--;
     }
     public  List<Product> getProductList() {
         return productList;
