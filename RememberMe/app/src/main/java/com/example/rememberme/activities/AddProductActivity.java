@@ -62,7 +62,7 @@ public class AddProductActivity extends AppCompatActivity {
     Button btn_ok, btn_cancel;
     EditText et_name, et_serialNum, et_expDate;
     ImageView imageView;
-    Button btn_time, btn_date;
+    Button btn_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,13 +149,13 @@ public class AddProductActivity extends AppCompatActivity {
             } else {
                 EntityClass entityClass = new EntityClass();
                 String date = (btn_date.getText().toString().trim());
-                String time = FormatTime(9,0);
+                //String time = FormatTime(9,0);
                 //String time = (btn_time.getText().toString().trim());
                 entityClass.setEventdate(date);
                 entityClass.setEventname(nameSave);
-                entityClass.setEventtime(time);
+                //entityClass.setEventtime(time);
                 databaseClass.EventDao().insertAll(entityClass);
-                setAlarm(nameSave, date, time);
+                setAlarm(nameSave, date);
             }
 
             // Todo: print out toast to notify "Add successfully"
@@ -191,7 +191,7 @@ public class AddProductActivity extends AppCompatActivity {
         });
     }
 
-    public String FormatTime(int hour, int minute) {
+    /*public String FormatTime(int hour, int minute) {
 
         String time = "";
         String formattedMinute;
@@ -215,7 +215,7 @@ public class AddProductActivity extends AppCompatActivity {
         }
 
         return time;
-    }
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -229,13 +229,13 @@ public class AddProductActivity extends AppCompatActivity {
 
     }
 
-    private void setAlarm(String text, String date, String time) {
+    private void setAlarm(String text, String date) {
         AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(getApplicationContext(), AlarmBroadcast.class);
         intent.putExtra("event", text);
-        intent.putExtra("time", date);
-        intent.putExtra("date", time);
+        intent.putExtra("date", date);
+        //intent.putExtra("date", time);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
         String dateandtime = date + " " + timeToNotify;
