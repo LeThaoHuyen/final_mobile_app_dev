@@ -92,6 +92,7 @@ public class EditProductActivity extends AppCompatActivity{
         URLSave = itemList.getCurrentProduct().getImageURL();
         Glide.with(getApplicationContext()).load(URLSave).into(imageView);
 
+
         btn_date = findViewById(R.id.btn_date);
         btn_date.setOnClickListener((view) -> {
             Calendar calendar = Calendar.getInstance();
@@ -107,15 +108,18 @@ public class EditProductActivity extends AppCompatActivity{
             datePickerDialog.show();
         });
 
+
+
         btn_addOne = findViewById(R.id.btn_add);
         btn_addOne.setOnClickListener((view)->{
             if (itemList.getProductList().contains(itemList.getCurrentProduct()))
             {
                 String nameSave = et_name.getText().toString();
-                String expDateSave = btn_date.getText().toString();
                 String seriSave = et_serialNum.getText().toString();
+                String expDateSave = btn_date.getText().toString();
 
                 /** set Notification **/
+                /*
                 if (btn_date.getText().toString().equals("Select date")) {
                     Toast.makeText(this, "Please select date", Toast.LENGTH_SHORT).show();
                 } else {
@@ -129,6 +133,8 @@ public class EditProductActivity extends AppCompatActivity{
                     databaseClass.EventDao().insertAll(entityClass);
                     setAlarm(nameSave, date, time);
                 }
+                */
+
                 // Todo: print out toast to notify "Update successfully"
                 Toast.makeText(this, "Update successfully!", Toast.LENGTH_SHORT).show();
 

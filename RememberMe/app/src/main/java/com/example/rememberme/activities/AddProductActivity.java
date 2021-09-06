@@ -121,9 +121,6 @@ public class AddProductActivity extends AppCompatActivity {
 
         btn_ok.setOnClickListener((view) -> {
             String nameSave = et_name.getText().toString();
-            String expDateSave = btn_date.getText().toString();
-            String seriSave = et_serialNum.getText().toString();
-            int idSave = productList.getCount() + 1;
 
             /** set Notification **/
             if (btn_date.getText().toString().equals("Select date")) {
@@ -139,6 +136,10 @@ public class AddProductActivity extends AppCompatActivity {
                 databaseClass.EventDao().insertAll(entityClass);
                 setAlarm(nameSave, date, time);
             }
+
+            String expDateSave = btn_date.getText().toString();
+            String seriSave = et_serialNum.getText().toString();
+            int idSave = productList.getCount() + 1;
 
             /** save product **/
             Product x = new Product(idSave, nameSave, expDateSave, URLSave, seriSave);

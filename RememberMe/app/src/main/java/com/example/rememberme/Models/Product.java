@@ -29,7 +29,7 @@ public class Product {
     }
 
     public String getTimeLeft() {
-        DateFormat formatter = new SimpleDateFormat("d/M/yyyy");
+        DateFormat formatter = new SimpleDateFormat("d-M-yyyy");
         Date expDate = null;
 
         try {

@@ -1,12 +1,9 @@
 package com.example.rememberme;
-import android.app.Application;
 
 import com.example.rememberme.Models.Product;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 public class SingletonClass {
     private static SingletonClass singleton;
@@ -16,6 +13,7 @@ public class SingletonClass {
     public static int notifyDays;
     public static int count =0;
     public static int realCount=0;
+
     public static SingletonClass getInstance(){
         if (singleton == null){
             singleton = new SingletonClass();
@@ -30,13 +28,6 @@ public class SingletonClass {
     public void setCurrentProduct(Product currentProduct) {
         SingletonClass.currentProduct = currentProduct;
     }
-    /*
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        singleton = this;
-    }
-    */
 
     public void clear()
     {

@@ -1,12 +1,8 @@
 package com.example.rememberme.Models;
 
 public class User {
-    String name, username, email, phoneNo, password;
+    private String name, username, email, phoneNo, password;
 
-    public User()
-    {
-
-    }
     public User(String name, String username, String email, String phoneNo, String password) {
         this.name = name;
         this.username = username;
