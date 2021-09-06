@@ -12,7 +12,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import com.example.rememberme.AuthenticationHelper.UserHelperClass;
+import com.example.rememberme.Models.User;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -127,7 +127,7 @@ public class SignUpActivity extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("users");
 
-        UserHelperClass helperClass = new UserHelperClass(name, username, email, phoneNo, password);
+        User helperClass = new User(name, username, email, phoneNo, password);
         reference.child(username).setValue(helperClass);
 
         Intent intent =  new Intent(SignUpActivity.this, LoginActivity.class);

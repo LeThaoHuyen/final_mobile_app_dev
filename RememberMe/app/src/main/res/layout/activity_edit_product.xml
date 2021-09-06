@@ -27,7 +27,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
-            android:background="@drawable/barcode_image" />
+            />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -84,7 +84,7 @@ public class EditProductActivity extends AppCompatActivity{
         et_name = (EditText) findViewById(R.id.edittext_product_name);
         et_expDate = (EditText) findViewById(R.id.edittext_expiry_date);
         et_serialNum = (EditText) findViewById(R.id.edittext_series_ID);
-        imageView = findViewById(R.id.imageView);
+        imageView = findViewById(R.id.product_image);
 
         et_name.setText(itemList.getCurrentProduct().getName());
         et_expDate.setText(itemList.getCurrentProduct().getDate());
@@ -115,20 +115,6 @@ public class EditProductActivity extends AppCompatActivity{
                 String expDateSave = et_expDate.getText().toString();
                 String seriSave = et_serialNum.getText().toString();
 
-                Product x = new Product(itemList.getProductID(), nameSave, expDateSave, URLSave, seriSave);
-                itemList.getProductList().remove(itemList.getCurrentProduct());
-                itemList.addItem(x);
-
-                rootNode = FirebaseDatabase.getInstance();
-                reference = rootNode.getReference("Products");
-                int id = itemList.getProductID();
-
-                //remove that item in database
-                reference.child(itemList.getUserID()).child(String.valueOf(x.getId())).setValue(x);
-
-                Intent intent = new Intent(this, HomeActivity.class);
-                startActivity(intent);
-
                 /** set Notification **/
                 if (btn_date.getText().toString().equals("Select date")) {
                     Toast.makeText(this, "Please select date", Toast.LENGTH_SHORT).show();
@@ -145,8 +131,21 @@ public class EditProductActivity extends AppCompatActivity{
                 }
                 // Todo: print out toast to notify "Update successfully"
                 Toast.makeText(this, "Update successfully!", Toast.LENGTH_SHORT).show();
-            }
 
+                Product x = new Product(itemList.getProductID(), nameSave, expDateSave, URLSave, seriSave);
+                itemList.getProductList().remove(itemList.getCurrentProduct());
+                itemList.addItem(x);
+
+                rootNode = FirebaseDatabase.getInstance();
+                reference = rootNode.getReference("Products");
+                int id = itemList.getProductID();
+
+                //remove that item in database
+                reference.child(itemList.getUserID()).child(String.valueOf(x.getId())).setValue(x);
+
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+            }
 
         });
 

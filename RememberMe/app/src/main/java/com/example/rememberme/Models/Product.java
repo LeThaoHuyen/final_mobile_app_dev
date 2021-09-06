@@ -47,7 +47,10 @@ public class Product {
         long days = diff / (24 * 60 * 60 * 1000);
         String dayDifference = Long.toString(days);
 
-        return (dayDifference + " days left");
+        if (days > 0)
+            return (dayDifference + " days left");
+        else
+            return ("Expired");
     }
 
     public String getSeriNum() {

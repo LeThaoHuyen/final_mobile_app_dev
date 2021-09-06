@@ -123,7 +123,7 @@ public class AddProductActivity extends AppCompatActivity {
             String nameSave = et_name.getText().toString();
             String expDateSave = btn_date.getText().toString();
             String seriSave = et_serialNum.getText().toString();
-            int idSave = productList.getCount();
+            int idSave = productList.getCount() + 1;
 
             /** set Notification **/
             if (btn_date.getText().toString().equals("Select date")) {

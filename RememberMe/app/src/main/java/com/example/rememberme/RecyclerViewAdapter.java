@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,14 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.example.rememberme.AuthenticationHelper.UserHelperClass;
 import com.example.rememberme.Models.Product;
 import com.example.rememberme.activities.EditProductActivity;
 import com.example.rememberme.activities.HomeActivity;
-import com.example.rememberme.activities.SplashScreenActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -158,10 +154,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View view, int position, boolean isLongClick) {
                 if(isLongClick) {
                     singletonClass.setCurrentProduct(productList.get(position));
-                    Toast.makeText(context, "Long Click: " + productList.get(position), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "Long Click: " + productList.get(position), Toast.LENGTH_SHORT).show();
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setCancelable(true);
-                    builder.setTitle("You want to update " + singletonClass.getCurrentProduct().getName() + "?");
+                    builder.setTitle("You want to delete " + singletonClass.getCurrentProduct().getName() + "?");
                     builder.setMessage("This cannot be undone");
                     builder.setPositiveButton("Confirm",
                             new DialogInterface.OnClickListener() {
@@ -186,11 +182,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 else {
                     singletonClass.setCurrentProduct(productList.get(position));
-                    Toast.makeText(context, "Short Click: " + productList.get(position), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "Short Click: " + productList.get(position), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent (context, EditProductActivity.class);
                     context.startActivity(intent);
-                   // context.startActivity(intent);
-                    //Huyen oi cho nay neeeeeeeeeeee
                 }
             }
         });
