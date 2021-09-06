@@ -112,7 +112,7 @@ public class EditProductActivity extends AppCompatActivity{
             if (itemList.getProductList().contains(itemList.getCurrentProduct()))
             {
                 String nameSave = et_name.getText().toString();
-                String expDateSave = et_expDate.getText().toString();
+                String expDateSave = btn_date.getText().toString();
                 String seriSave = et_serialNum.getText().toString();
 
                 /** set Notification **/
